@@ -36,24 +36,24 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <TooltipProvider delayDuration={200}>
-    <div className="flex h-screen w-full overflow-hidden bg-canvas text-foreground">
-      <Sidebar />
-      <div className="flex min-w-0 flex-1 flex-col">
-        <TopBar />
-        <div className="flex min-h-0 flex-1">
-          <main id="main" className="min-h-0 min-w-0 flex-1 overflow-y-auto">
-            {children}
-          </main>
-          <CommandRail />
+      <div className="flex h-screen w-full overflow-hidden bg-canvas text-foreground">
+        <Sidebar />
+        <div className="flex min-w-0 flex-1 flex-col">
+          <TopBar />
+          <div className="flex min-h-0 flex-1">
+            <main id="main" className="min-h-0 min-w-0 flex-1 overflow-y-auto">
+              {children}
+            </main>
+            <CommandRail />
+          </div>
+          <StatusStrip />
+          <MobileBar />
         </div>
-        <StatusStrip />
-        <MobileBar />
+        <CommandPalette />
+        <IntelligenceDrawer />
+        <NotificationsDrawer />
+        <BootSequence />
       </div>
-      <CommandPalette />
-      <IntelligenceDrawer />
-      <NotificationsDrawer />
-      <BootSequence />
-    </div>
     </TooltipProvider>
   );
 }

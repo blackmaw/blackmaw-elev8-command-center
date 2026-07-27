@@ -10,7 +10,11 @@ export const Route = createFileRoute("/search")({
   head: () => ({
     meta: [
       { title: "Global Search — Elev8 Command Center" },
-      { name: "description", content: "Search every record across organizations, products, stages, repositories, documents, and assets." },
+      {
+        name: "description",
+        content:
+          "Search every record across organizations, products, stages, repositories, documents, and assets.",
+      },
       { property: "og:title", content: "Global Search — Elev8 Command Center" },
       { property: "og:description", content: "Unified record search across the command center." },
     ],
@@ -24,7 +28,8 @@ function SearchPage() {
   const [entity, setEntity] = useState<SearchEntity | "all">("all");
 
   const results = useMemo(
-    () => (query.trim().length < 2 ? [] : searchAll(query, entity === "all" ? undefined : [entity])),
+    () =>
+      query.trim().length < 2 ? [] : searchAll(query, entity === "all" ? undefined : [entity]),
     [query, entity],
   );
 
@@ -60,7 +65,9 @@ function SearchPage() {
               type="button"
               onClick={() => setEntity(e as SearchEntity | "all")}
               className={`rounded-xs border px-2 py-1 text-[0.75rem] transition-colors ${
-                e === entity ? "border-border-strong bg-panel-elevated text-foreground" : "border-border text-muted-foreground hover:text-foreground"
+                e === entity
+                  ? "border-border-strong bg-panel-elevated text-foreground"
+                  : "border-border text-muted-foreground hover:text-foreground"
               }`}
             >
               {e === "all" ? "All" : SEARCH_ENTITY_LABEL[e as SearchEntity]}
@@ -72,7 +79,12 @@ function SearchPage() {
           <div className="mt-3 flex flex-wrap items-center gap-1.5">
             <span className="label-caps">Recent</span>
             {recentSearches.map((r) => (
-              <button key={r} type="button" onClick={() => setQuery(r)} className="rounded-xs border border-border px-2 py-0.5 text-[0.75rem] text-muted-foreground hover:text-foreground">
+              <button
+                key={r}
+                type="button"
+                onClick={() => setQuery(r)}
+                className="rounded-xs border border-border px-2 py-0.5 text-[0.75rem] text-muted-foreground hover:text-foreground"
+              >
                 {r}
               </button>
             ))}
@@ -85,18 +97,27 @@ function SearchPage() {
           <div className="p-4">
             <EmptyState
               title={query.trim().length < 2 ? "Enter a search term" : "No matching records"}
-              description={query.trim().length < 2 ? "Type at least two characters to search the record set." : "Try a different term or entity filter."}
+              description={
+                query.trim().length < 2
+                  ? "Type at least two characters to search the record set."
+                  : "Try a different term or entity filter."
+              }
             />
           </div>
         ) : (
           <ul className="divide-y divide-border">
             {results.map((r) => (
               <li key={`${r.entity}-${r.id}`}>
-                <Link to={r.route} className="flex min-w-0 items-start gap-3 px-4 py-2.5 hover:bg-panel-elevated">
+                <Link
+                  to={r.route}
+                  className="flex min-w-0 items-start gap-3 px-4 py-2.5 hover:bg-panel-elevated"
+                >
                   <Tag>{SEARCH_ENTITY_LABEL[r.entity]}</Tag>
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-[0.8125rem] font-medium">{r.title}</span>
-                    <span className="block truncate text-xs text-muted-foreground">{r.subtitle}</span>
+                    <span className="block truncate text-xs text-muted-foreground">
+                      {r.subtitle}
+                    </span>
                   </span>
                   <Mono className="shrink-0 text-[0.6875rem] text-muted-foreground">{r.meta}</Mono>
                 </Link>

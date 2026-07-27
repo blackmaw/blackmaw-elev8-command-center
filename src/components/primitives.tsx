@@ -77,9 +77,23 @@ export function StatusPill({
   );
 }
 
-export function Tag({ tone = "neutral", children, className }: { tone?: Tone; children: ReactNode; className?: string }) {
+export function Tag({
+  tone = "neutral",
+  children,
+  className,
+}: {
+  tone?: Tone;
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <span className={cn("inline-flex items-center rounded-xs border px-1.5 py-0.5 text-[0.6875rem] leading-4", TONE_CLASS[tone], className)}>
+    <span
+      className={cn(
+        "inline-flex items-center rounded-xs border px-1.5 py-0.5 text-[0.6875rem] leading-4",
+        TONE_CLASS[tone],
+        className,
+      )}
+    >
       {children}
     </span>
   );
@@ -128,7 +142,9 @@ export function KeyValue({
   return (
     <div className={cn("min-w-0", className)}>
       <Label>{label}</Label>
-      <div className={cn("mt-0.5 truncate text-[0.8125rem] text-foreground", mono && "tech")}>{value}</div>
+      <div className={cn("mt-0.5 truncate text-[0.8125rem] text-foreground", mono && "tech")}>
+        {value}
+      </div>
     </div>
   );
 }
@@ -164,7 +180,9 @@ export function MetricTile({
           <span className={cn("size-1.5 rounded-full", TONE_DOT[tone])} aria-hidden />
         )}
         <Label className="truncate">{label}</Label>
-        {Icon && <span className={cn("ml-auto size-1.5 rounded-full", TONE_DOT[tone])} aria-hidden />}
+        {Icon && (
+          <span className={cn("ml-auto size-1.5 rounded-full", TONE_DOT[tone])} aria-hidden />
+        )}
       </div>
       <div className="num text-2xl leading-7 font-semibold tracking-tight">{value}</div>
       {hint && <div className="truncate text-[0.6875rem] text-muted-foreground">{hint}</div>}
@@ -203,8 +221,21 @@ export function RadialProgress({
   const c = 2 * Math.PI * r;
   return (
     <div className={cn("relative shrink-0", className)} style={{ width: size, height: size }}>
-      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} role="img" aria-label={label ?? `${pct}% complete`}>
-        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--border-strong)" strokeWidth={3} />
+      <svg
+        width={size}
+        height={size}
+        viewBox={`0 0 ${size} ${size}`}
+        role="img"
+        aria-label={label ?? `${pct}% complete`}
+      >
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={r}
+          fill="none"
+          stroke="var(--border-strong)"
+          strokeWidth={3}
+        />
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -219,18 +250,37 @@ export function RadialProgress({
           style={{ transition: "stroke-dashoffset 700ms ease-out" }}
         />
       </svg>
-      <span className="num absolute inset-0 grid place-items-center text-[0.75rem] font-semibold">{pct}%</span>
+      <span className="num absolute inset-0 grid place-items-center text-[0.75rem] font-semibold">
+        {pct}%
+      </span>
     </div>
   );
 }
 
 /** Compact status ribbon used instead of a large warning block. */
-export function StatusRibbon({ items, className }: { items: { label: string; value: ReactNode; tone?: Tone }[]; className?: string }) {
+export function StatusRibbon({
+  items,
+  className,
+}: {
+  items: { label: string; value: ReactNode; tone?: Tone }[];
+  className?: string;
+}) {
   return (
-    <div className={cn("flex flex-wrap items-center gap-x-4 gap-y-1.5 rounded-xs border border-border bg-canvas-2 px-3 py-1.5", className)}>
+    <div
+      className={cn(
+        "flex flex-wrap items-center gap-x-4 gap-y-1.5 rounded-xs border border-border bg-canvas-2 px-3 py-1.5",
+        className,
+      )}
+    >
       {items.map((it) => (
-        <span key={it.label} className="flex items-center gap-1.5 text-[0.6875rem] whitespace-nowrap">
-          <span className={cn("size-1.5 rounded-full", TONE_DOT[it.tone ?? "neutral"])} aria-hidden />
+        <span
+          key={it.label}
+          className="flex items-center gap-1.5 text-[0.6875rem] whitespace-nowrap"
+        >
+          <span
+            className={cn("size-1.5 rounded-full", TONE_DOT[it.tone ?? "neutral"])}
+            aria-hidden
+          />
           <span className="label-caps">{it.label}</span>
           <span className="tech text-foreground">{it.value}</span>
         </span>
@@ -239,7 +289,15 @@ export function StatusRibbon({ items, className }: { items: { label: string; val
   );
 }
 
-export function ProgressBar({ value, tone = "teal", className }: { value: number; tone?: Tone; className?: string }) {
+export function ProgressBar({
+  value,
+  tone = "teal",
+  className,
+}: {
+  value: number;
+  tone?: Tone;
+  className?: string;
+}) {
   return (
     <div
       className={cn("h-1.5 w-full overflow-hidden rounded-xs bg-canvas-2", className)}
@@ -248,14 +306,25 @@ export function ProgressBar({ value, tone = "teal", className }: { value: number
       aria-valuemin={0}
       aria-valuemax={100}
     >
-      <div className={cn("h-full transition-all", TONE_DOT[tone])} style={{ width: `${Math.min(100, Math.max(0, value))}%` }} />
+      <div
+        className={cn("h-full transition-all", TONE_DOT[tone])}
+        style={{ width: `${Math.min(100, Math.max(0, value))}%` }}
+      />
     </div>
   );
 }
 
 /* ------------------------------------------------------------- UI states */
 
-export function EmptyState({ title, description, action }: { title: string; description?: string; action?: ReactNode }) {
+export function EmptyState({
+  title,
+  description,
+  action,
+}: {
+  title: string;
+  description?: string;
+  action?: ReactNode;
+}) {
   return (
     <div className="flex flex-col items-center justify-center gap-2 rounded-xs border border-dashed border-border px-6 py-10 text-center">
       <p className="text-sm font-medium">{title}</p>
@@ -276,14 +345,19 @@ export function LoadingState({ rows = 4 }: { rows?: number }) {
 }
 
 export function ErrorState({ message }: { message: string }) {
-  return <div className="rounded-xs border border-critical/40 bg-critical/8 px-4 py-3 text-xs text-critical">{message}</div>;
+  return (
+    <div className="rounded-xs border border-critical/40 bg-critical/8 px-4 py-3 text-xs text-critical">
+      {message}
+    </div>
+  );
 }
 
 export function PermissionDenied({ permission }: { permission: string }) {
   return (
     <div className="rounded-xs border border-border-strong bg-canvas-2 px-4 py-3 text-xs text-muted-foreground">
-      Access denied. This view requires <span className="tech text-foreground">{permission}</span> within the active
-      workspace scope. Authorization is enforced server-side once authentication is connected.
+      Access denied. This view requires <span className="tech text-foreground">{permission}</span>{" "}
+      within the active workspace scope. Authorization is enforced server-side once authentication
+      is connected.
     </div>
   );
 }
@@ -308,7 +382,9 @@ export function PageHeader({
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
           <h1 className="text-lg font-semibold tracking-tight">{title}</h1>
-          {descriptor && <p className="mt-1 max-w-3xl text-xs text-muted-foreground">{descriptor}</p>}
+          {descriptor && (
+            <p className="mt-1 max-w-3xl text-xs text-muted-foreground">{descriptor}</p>
+          )}
         </div>
         <div className="flex flex-wrap items-center gap-2">
           {provenance && <ProvenanceTag value={provenance} />}

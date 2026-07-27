@@ -4,14 +4,7 @@
  * must never define their own colour/status mapping.
  */
 
-export type Tone =
-  | "neutral"
-  | "teal"
-  | "success"
-  | "warning"
-  | "critical"
-  | "info"
-  | "muted";
+export type Tone = "neutral" | "teal" | "success" | "warning" | "critical" | "info" | "muted";
 
 export interface StatusMeta {
   label: string;
@@ -136,7 +129,10 @@ export const WORKING_TREE: Record<string, StatusMeta> = {
 };
 
 /** Fallback-safe lookup used by every status component. */
-export function statusMeta(map: Record<string, StatusMeta>, key: string | null | undefined): StatusMeta {
+export function statusMeta(
+  map: Record<string, StatusMeta>,
+  key: string | null | undefined,
+): StatusMeta {
   if (!key) return def("Unknown", "muted");
   return map[key] ?? def(key.replace(/_/g, " "), "muted");
 }

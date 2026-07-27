@@ -9,7 +9,11 @@ export const Route = createFileRoute("/documents")({
   head: () => ({
     meta: [
       { title: "Document Registry — Elev8 Command Center" },
-      { name: "description", content: "Institutional records: architecture, specifications, runbooks, corporate and curriculum documents." },
+      {
+        name: "description",
+        content:
+          "Institutional records: architecture, specifications, runbooks, corporate and curriculum documents.",
+      },
       { property: "og:title", content: "Document Registry — Elev8 Command Center" },
       { property: "og:description", content: "Versioned institutional record registry." },
     ],
@@ -40,7 +44,9 @@ function DocumentsPage() {
             type="button"
             onClick={() => setType(t)}
             className={`rounded-xs border px-2 py-1 text-[0.75rem] transition-colors ${
-              t === type ? "border-border-strong bg-panel-elevated text-foreground" : "border-border text-muted-foreground hover:text-foreground"
+              t === type
+                ? "border-border-strong bg-panel-elevated text-foreground"
+                : "border-border text-muted-foreground hover:text-foreground"
             }`}
           >
             {t.replace(/_/g, " ")}
@@ -52,13 +58,40 @@ function DocumentsPage() {
         <DataTable
           rows={rows}
           columns={[
-            { key: "title", header: "Document", render: (d) => <span className="font-medium">{d.title}</span> },
-            { key: "type", header: "Type", render: (d) => <Tag>{d.doc_type.replace(/_/g, " ")}</Tag>, secondary: true },
-            { key: "product", header: "Product", render: (d) => productName(d.product_id), secondary: true },
+            {
+              key: "title",
+              header: "Document",
+              render: (d) => <span className="font-medium">{d.title}</span>,
+            },
+            {
+              key: "type",
+              header: "Type",
+              render: (d) => <Tag>{d.doc_type.replace(/_/g, " ")}</Tag>,
+              secondary: true,
+            },
+            {
+              key: "product",
+              header: "Product",
+              render: (d) => productName(d.product_id),
+              secondary: true,
+            },
             { key: "version", header: "Version", render: (d) => <Mono>v{d.version}</Mono> },
-            { key: "approval", header: "Approval", render: (d) => <StatusPill map={GATE_STATE} value={d.approval_state} /> },
-            { key: "status", header: "Status", render: (d) => <StatusPill map={ENTITY_STATUS} value={d.status} dot={false} /> },
-            { key: "loc", header: "Storage", render: (d) => <Mono className="text-muted-foreground">{d.storage_location}</Mono>, secondary: true },
+            {
+              key: "approval",
+              header: "Approval",
+              render: (d) => <StatusPill map={GATE_STATE} value={d.approval_state} />,
+            },
+            {
+              key: "status",
+              header: "Status",
+              render: (d) => <StatusPill map={ENTITY_STATUS} value={d.status} dot={false} />,
+            },
+            {
+              key: "loc",
+              header: "Storage",
+              render: (d) => <Mono className="text-muted-foreground">{d.storage_location}</Mono>,
+              secondary: true,
+            },
           ]}
         />
       </Panel>

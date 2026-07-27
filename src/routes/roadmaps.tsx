@@ -7,7 +7,11 @@ export const Route = createFileRoute("/roadmaps")({
   head: () => ({
     meta: [
       { title: "Roadmaps — Elev8 Command Center" },
-      { name: "description", content: "Horizon planning by lane and quarter across Elev8 Technologies and the Driving Academy." },
+      {
+        name: "description",
+        content:
+          "Horizon planning by lane and quarter across Elev8 Technologies and the Driving Academy.",
+      },
       { property: "og:title", content: "Roadmaps — Elev8 Command Center" },
       { property: "og:description", content: "Lanes, quarters, and horizon planning." },
     ],
@@ -43,18 +47,26 @@ function RoadmapsPage() {
                 ))}
               </div>
               {rm.lanes.map((lane) => (
-                <div key={lane.id} className="grid grid-cols-[10rem_repeat(4,1fr)] items-start gap-2">
+                <div
+                  key={lane.id}
+                  className="grid grid-cols-[10rem_repeat(4,1fr)] items-start gap-2"
+                >
                   <div className="pt-1 text-[0.8125rem] font-medium">{lane.label}</div>
                   {QUARTERS.map((q) => (
                     <div key={q} className="space-y-1.5">
                       {lane.items
                         .filter((i) => i.quarter === q)
                         .map((item) => (
-                          <div key={item.id} className="rounded-xs border border-border bg-canvas p-2">
+                          <div
+                            key={item.id}
+                            className="rounded-xs border border-border bg-canvas p-2"
+                          >
                             <div className="truncate text-[0.75rem]">{item.label}</div>
                             <div className="mt-1 flex items-center justify-between gap-2">
                               <StatusPill map={STAGE_STATE} value={item.state} dot={false} />
-                              <span className="truncate text-[0.625rem] text-muted-foreground">{productName(item.product_id)}</span>
+                              <span className="truncate text-[0.625rem] text-muted-foreground">
+                                {productName(item.product_id)}
+                              </span>
                             </div>
                           </div>
                         ))}

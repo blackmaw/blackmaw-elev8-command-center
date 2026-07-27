@@ -49,7 +49,11 @@ export function DataTable<T extends { id: string }>({
                 key={c.key}
                 scope="col"
                 style={c.width ? { width: c.width } : undefined}
-                className={cn("label-caps px-3 py-2 font-medium whitespace-nowrap", c.secondary && "hidden lg:table-cell", c.className)}
+                className={cn(
+                  "label-caps px-3 py-2 font-medium whitespace-nowrap",
+                  c.secondary && "hidden lg:table-cell",
+                  c.className,
+                )}
               >
                 {c.header}
               </th>
@@ -74,11 +78,19 @@ export function DataTable<T extends { id: string }>({
               }
               className={cn(
                 "border-b border-border/70 transition-colors last:border-0",
-                onRowClick && "cursor-pointer hover:bg-panel-elevated focus:bg-panel-elevated focus:outline-none",
+                onRowClick &&
+                  "cursor-pointer hover:bg-panel-elevated focus:bg-panel-elevated focus:outline-none",
               )}
             >
               {columns.map((c) => (
-                <td key={c.key} className={cn("px-3 py-2 align-middle", c.secondary && "hidden lg:table-cell", c.className)}>
+                <td
+                  key={c.key}
+                  className={cn(
+                    "px-3 py-2 align-middle",
+                    c.secondary && "hidden lg:table-cell",
+                    c.className,
+                  )}
+                >
                   {c.render(row)}
                 </td>
               ))}

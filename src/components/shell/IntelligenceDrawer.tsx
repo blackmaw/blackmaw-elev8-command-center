@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import {  } from "lucide-react";
+import {} from "lucide-react";
 import { Elev8Mark } from "@/components/shell/BrandMark";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet";
 import { useAppState } from "@/app/app-state";
 import { AI_RESPONSES, AI_SUGGESTED_PROMPTS, DEFAULT_AI_RESPONSE } from "@/data/demo";
 import { DemoBanner, Label } from "@/components/primitives";
@@ -62,13 +68,20 @@ export function IntelligenceDrawer() {
 
           {turns.map((t) => (
             <div key={t.id} className="space-y-2">
-              <div className="rounded-xs border border-border-strong bg-panel-elevated px-3 py-2 text-[0.8125rem]">{t.question}</div>
+              <div className="rounded-xs border border-border-strong bg-panel-elevated px-3 py-2 text-[0.8125rem]">
+                {t.question}
+              </div>
               <div className="rounded-xs border border-teal/30 bg-teal/8 px-3 py-2 text-[0.8125rem] leading-relaxed">
                 {t.answer}
                 <div className="mt-2 space-y-1 border-t border-border pt-2">
                   <Label>Referenced records</Label>
                   {t.citations.map((c) => (
-                    <Link key={c.label} to={c.route} onClick={() => setIntelOpen(false)} className="block text-[0.75rem] text-teal-bright hover:underline">
+                    <Link
+                      key={c.label}
+                      to={c.route}
+                      onClick={() => setIntelOpen(false)}
+                      className="block text-[0.75rem] text-teal-bright hover:underline"
+                    >
                       {c.label}
                     </Link>
                   ))}
@@ -96,7 +109,10 @@ export function IntelligenceDrawer() {
               placeholder="Ask about state, blockers, or records…"
               className="flex-1 rounded-xs border border-border bg-canvas px-2.5 py-2 text-[0.8125rem] outline-none focus:border-teal"
             />
-            <button type="submit" className="rounded-xs border border-teal/50 bg-teal/15 px-3 text-[0.75rem] text-teal-bright hover:bg-teal/25">
+            <button
+              type="submit"
+              className="rounded-xs border border-teal/50 bg-teal/15 px-3 text-[0.75rem] text-teal-bright hover:bg-teal/25"
+            >
               Ask
             </button>
           </div>

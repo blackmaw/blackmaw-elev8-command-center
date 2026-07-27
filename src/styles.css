@@ -75,8 +75,7 @@
 :root {
   --radius: 0.25rem;
 
-  --font-ui:
-    "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-ui: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-technical: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
 
   /* Canvas + surfaces */

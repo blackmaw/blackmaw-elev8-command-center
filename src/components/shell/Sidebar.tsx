@@ -26,7 +26,10 @@ function NavLink({ item, collapsed }: { item: NavItem; collapsed: boolean }) {
       )}
       aria-current={active ? "page" : undefined}
     >
-      <span className={cn("h-4 w-0.5 rounded-full", active ? "bg-teal-bright" : "bg-transparent")} aria-hidden />
+      <span
+        className={cn("h-4 w-0.5 rounded-full", active ? "bg-teal-bright" : "bg-transparent")}
+        aria-hidden
+      />
       <Icon className="size-4 shrink-0" aria-hidden />
       {!collapsed && <span className="truncate">{item.label}</span>}
     </Link>
@@ -56,7 +59,12 @@ export function Sidebar() {
         sidebarCollapsed ? "w-14" : "w-60",
       )}
     >
-      <div className={cn("flex items-center gap-2 border-b border-border px-3 py-3", sidebarCollapsed && "justify-center px-0")}>
+      <div
+        className={cn(
+          "flex items-center gap-2 border-b border-border px-3 py-3",
+          sidebarCollapsed && "justify-center px-0",
+        )}
+      >
         <BrandMark collapsed={sidebarCollapsed} />
       </div>
 
@@ -105,11 +113,15 @@ export function Sidebar() {
           <div className="mt-2 space-y-1 rounded-xs border border-border bg-canvas px-2 py-1.5">
             <div className="flex items-center justify-between text-[0.6875rem] text-muted-foreground">
               <span className="label-caps">System</span>
-              <span className="w-auto"><SystemStatusControl /></span>
+              <span className="w-auto">
+                <SystemStatusControl />
+              </span>
             </div>
             <div className="flex items-center justify-between text-[0.6875rem] text-muted-foreground">
               <span className="label-caps">Mode</span>
-              <span className="min-w-0"><OperatingModeControl /></span>
+              <span className="min-w-0">
+                <OperatingModeControl />
+              </span>
             </div>
           </div>
         )}
@@ -125,17 +137,25 @@ export function Sidebar() {
               )}
               aria-label={sidebarCollapsed ? "Expand navigation" : "Collapse navigation"}
             >
-              {sidebarCollapsed ? <PanelLeftOpen className="size-4" /> : <PanelLeftClose className="size-4" />}
+              {sidebarCollapsed ? (
+                <PanelLeftOpen className="size-4" />
+              ) : (
+                <PanelLeftClose className="size-4" />
+              )}
               {!sidebarCollapsed && <span>Collapse</span>}
             </button>
           </TooltipTrigger>
           <TooltipContent side="right">
-            {sidebarCollapsed ? "Expand navigation — preference is saved" : "Collapse navigation — preference is saved"}
+            {sidebarCollapsed
+              ? "Expand navigation — preference is saved"
+              : "Collapse navigation — preference is saved"}
           </TooltipContent>
         </Tooltip>
 
         {!sidebarCollapsed && (
-          <div className="tech mt-1.5 truncate px-2 text-[0.625rem] text-muted-foreground">{SYSTEM_STATE.build}</div>
+          <div className="tech mt-1.5 truncate px-2 text-[0.625rem] text-muted-foreground">
+            {SYSTEM_STATE.build}
+          </div>
         )}
       </div>
     </nav>

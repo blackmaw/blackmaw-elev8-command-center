@@ -12,7 +12,9 @@ import type { FounderBriefing, WorkspaceKey } from "@/domain/types";
 
 export function generateFounderBriefing(workspaceId: WorkspaceKey = "command"): FounderBriefing {
   const scoped = <T extends { workspace_id: string | null }>(rows: T[]) =>
-    workspaceId === "command" ? rows : rows.filter((r) => !r.workspace_id || r.workspace_id === workspaceId);
+    workspaceId === "command"
+      ? rows
+      : rows.filter((r) => !r.workspace_id || r.workspace_id === workspaceId);
 
   const resume = getResumeContext();
   const priority = db.CURRENT_PRIORITY;
@@ -26,7 +28,8 @@ export function generateFounderBriefing(workspaceId: WorkspaceKey = "command"): 
       id: a.id,
       label: a.name,
       detail: `${a.role} — lifecycle ${a.lifecycle.replace(/_/g, " ")}`,
-      severity: (a.lifecycle === "maintenance" ? "warning" : "info") as "info" | "warning" | "critical",
+      severity: (a.lifecycle === "maintenance" ? "warning" : "info") as
+        "info" | "warning" | "critical",
     }))
     .concat(
       db.risks
@@ -35,7 +38,8 @@ export function generateFounderBriefing(workspaceId: WorkspaceKey = "command"): 
           id: r.id,
           label: r.title,
           detail: r.recommended_response,
-          severity: (r.severity === "critical" ? "critical" : "warning") as "info" | "warning" | "critical",
+          severity: (r.severity === "critical" ? "critical" : "warning") as
+            "info" | "warning" | "critical",
         })),
     );
 
@@ -46,11 +50,19 @@ export function generateFounderBriefing(workspaceId: WorkspaceKey = "command"): 
 
   const documentationGaps = db.documents
     .filter((d) => d.approval_state !== "passed")
-    .map((d) => ({ id: d.id, label: d.title, detail: `v${d.version} — approval ${d.approval_state.replace(/_/g, " ")}` }))
+    .map((d) => ({
+      id: d.id,
+      label: d.title,
+      detail: `v${d.version} — approval ${d.approval_state.replace(/_/g, " ")}`,
+    }))
     .concat(
       db.repositories
         .filter((r) => r.documentation_state !== "passed")
-        .map((r) => ({ id: r.id, label: `${r.name} documentation`, detail: `Review state ${r.documentation_state.replace(/_/g, " ")}` })),
+        .map((r) => ({
+          id: r.id,
+          label: `${r.name} documentation`,
+          detail: `Review state ${r.documentation_state.replace(/_/g, " ")}`,
+        })),
     );
 
   return {
@@ -68,7 +80,10 @@ export function generateFounderBriefing(workspaceId: WorkspaceKey = "command"): 
     infrastructureAlerts,
     upcomingGates,
     documentationGaps,
-    recentChanges: recentChanges(14, workspaceId === "command" ? undefined : workspaceId).slice(0, 8),
+    recentChanges: recentChanges(14, workspaceId === "command" ? undefined : workspaceId).slice(
+      0,
+      8,
+    ),
     suggestedNextAction: { label: resume.nextRecommendedAction, route: resume.route },
     health: healthBoard(),
     provenance: "demonstration",

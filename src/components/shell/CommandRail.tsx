@@ -16,7 +16,9 @@ const RAIL_PROMPTS = AI_SUGGESTED_PROMPTS.slice(0, 5);
 export function CommandRail() {
   const { setIntelOpen } = useAppState();
   const approvals = listApprovals({ pendingOnly: true });
-  const risks = listRisks().filter((r) => r.state !== "closed").slice(0, 4);
+  const risks = listRisks()
+    .filter((r) => r.state !== "closed")
+    .slice(0, 4);
 
   return (
     <aside
@@ -26,7 +28,9 @@ export function CommandRail() {
       <section className="border-b border-border p-3">
         <div className="flex items-start justify-between gap-2">
           <div>
-            <div className="text-[0.8125rem] font-semibold tracking-[0.1em]">ELEV8 INTELLIGENCE</div>
+            <div className="text-[0.8125rem] font-semibold tracking-[0.1em]">
+              ELEV8 INTELLIGENCE
+            </div>
             <div className="label-caps">AI Command Assistant</div>
           </div>
           <Tag tone="warning">Demonstration</Tag>
@@ -74,7 +78,9 @@ export function CommandRail() {
         <div className="flex items-center gap-1.5">
           <ShieldCheck className="size-3.5 text-warning" aria-hidden />
           <Label>Pending approvals</Label>
-          <span className="num ml-auto text-[0.6875rem] text-muted-foreground">{approvals.length}</span>
+          <span className="num ml-auto text-[0.6875rem] text-muted-foreground">
+            {approvals.length}
+          </span>
         </div>
         <ul className="mt-2 space-y-1.5">
           {approvals.map((a) => (
@@ -89,7 +95,10 @@ export function CommandRail() {
             </li>
           ))}
         </ul>
-        <Link to="/decisions" className="mt-2 inline-block text-[0.75rem] text-teal-bright hover:underline">
+        <Link
+          to="/decisions"
+          className="mt-2 inline-block text-[0.75rem] text-teal-bright hover:underline"
+        >
           Open approval register
         </Link>
       </section>

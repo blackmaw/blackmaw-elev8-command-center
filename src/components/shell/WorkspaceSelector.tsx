@@ -47,10 +47,17 @@ export function WorkspaceSelector({ compact = false }: { compact?: boolean }) {
               navigate({ to: w.route });
             }}
           >
-            <Check className={cn("mt-0.5 size-3.5", w.id === workspaceId ? "opacity-100 text-teal-bright" : "opacity-0")} />
+            <Check
+              className={cn(
+                "mt-0.5 size-3.5",
+                w.id === workspaceId ? "opacity-100 text-teal-bright" : "opacity-0",
+              )}
+            />
             <span className="min-w-0 flex-1">
               <span className="block truncate text-[0.8125rem] font-medium">{w.name}</span>
-              <span className="block truncate text-[0.6875rem] text-muted-foreground">{w.descriptor}</span>
+              <span className="block truncate text-[0.6875rem] text-muted-foreground">
+                {w.descriptor}
+              </span>
             </span>
             <StatusPill map={ENTITY_STATUS} value={w.status} dot={false} />
           </DropdownMenuItem>

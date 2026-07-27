@@ -36,7 +36,8 @@ interface PendingAction {
  * decision or mutates state routes through a confirmation dialog first.
  */
 export function CommandPalette() {
-  const { paletteOpen, setPaletteOpen, setWorkspaceId, setIntelOpen, addRecentSearch } = useAppState();
+  const { paletteOpen, setPaletteOpen, setWorkspaceId, setIntelOpen, addRecentSearch } =
+    useAppState();
   const [query, setQuery] = useState("");
   const [pending, setPending] = useState<PendingAction | null>(null);
   const navigate = useNavigate();
@@ -55,8 +56,17 @@ export function CommandPalette() {
 
   return (
     <>
-      <CommandDialog open={paletteOpen} onOpenChange={setPaletteOpen} title="Command palette" description="Search records and run commands">
-        <CommandInput placeholder="Search records or run a command…" value={query} onValueChange={setQuery} />
+      <CommandDialog
+        open={paletteOpen}
+        onOpenChange={setPaletteOpen}
+        title="Command palette"
+        description="Search records and run commands"
+      >
+        <CommandInput
+          placeholder="Search records or run a command…"
+          value={query}
+          onValueChange={setQuery}
+        />
         <CommandList>
           <CommandEmpty>No matching record or command.</CommandEmpty>
 
@@ -82,9 +92,13 @@ export function CommandPalette() {
             <CommandItem onSelect={() => go("/command")}>Open Command Overview</CommandItem>
             <CommandItem onSelect={() => go("/products")}>Open product portfolio</CommandItem>
             <CommandItem onSelect={() => go("/repositories")}>Open repository center</CommandItem>
-            <CommandItem onSelect={() => go("/infrastructure/topology")}>Open infrastructure topology</CommandItem>
+            <CommandItem onSelect={() => go("/infrastructure/topology")}>
+              Open infrastructure topology
+            </CommandItem>
             <CommandItem onSelect={() => go("/documents")}>Search documents</CommandItem>
-            <CommandItem onSelect={() => go("/engineering/stages")}>View pending approvals</CommandItem>
+            <CommandItem onSelect={() => go("/engineering/stages")}>
+              View pending approvals
+            </CommandItem>
             <CommandItem onSelect={() => go("/releases")}>Start release review</CommandItem>
           </CommandGroup>
 
@@ -92,7 +106,11 @@ export function CommandPalette() {
 
           <CommandGroup heading="Products">
             {listProducts().map((p) => (
-              <CommandItem key={p.id} value={`product ${p.name}`} onSelect={() => go(`/products/${p.key}`)}>
+              <CommandItem
+                key={p.id}
+                value={`product ${p.name}`}
+                onSelect={() => go(`/products/${p.key}`)}
+              >
                 Open product — {p.name}
               </CommandItem>
             ))}
@@ -100,7 +118,11 @@ export function CommandPalette() {
 
           <CommandGroup heading="Repositories">
             {listRepositories().map((r) => (
-              <CommandItem key={r.id} value={`repository ${r.name}`} onSelect={() => go(`/repositories/${r.id}`)}>
+              <CommandItem
+                key={r.id}
+                value={`repository ${r.name}`}
+                onSelect={() => go(`/repositories/${r.id}`)}
+              >
                 Open repository — {r.name}
               </CommandItem>
             ))}
@@ -144,7 +166,8 @@ export function CommandPalette() {
                   description:
                     "Recording a checkpoint writes an audit entry against the active stage. This foundation build does not persist records.",
                   confirmLabel: "Record checkpoint",
-                  run: () => toast.info("Checkpoint capture is not persisted in this foundation build."),
+                  run: () =>
+                    toast.info("Checkpoint capture is not persisted in this foundation build."),
                 })
               }
             >
@@ -154,7 +177,8 @@ export function CommandPalette() {
               onSelect={() =>
                 confirm({
                   title: "Create decision record",
-                  description: "Opens a new architecture or business decision record in the decision register.",
+                  description:
+                    "Opens a new architecture or business decision record in the decision register.",
                   confirmLabel: "Create draft",
                   run: () => navigate({ to: "/decisions" }),
                 })
@@ -166,7 +190,8 @@ export function CommandPalette() {
               onSelect={() =>
                 confirm({
                   title: "Register infrastructure asset",
-                  description: "Adds a new asset to the infrastructure registry. Not persisted in this build.",
+                  description:
+                    "Adds a new asset to the infrastructure registry. Not persisted in this build.",
                   confirmLabel: "Open registry",
                   run: () => navigate({ to: "/assets" }),
                 })
@@ -178,7 +203,8 @@ export function CommandPalette() {
               onSelect={() =>
                 confirm({
                   title: "Create task",
-                  description: "Creates a task in the active workspace. Not persisted in this build.",
+                  description:
+                    "Creates a task in the active workspace. Not persisted in this build.",
                   confirmLabel: "Open work queue",
                   run: () => navigate({ to: "/engineering" }),
                 })

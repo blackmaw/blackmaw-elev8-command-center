@@ -1,17 +1,29 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import {  } from "lucide-react";
+import {} from "lucide-react";
 import { Elev8Mark } from "@/components/shell/BrandMark";
 import { DemoBanner, Label, PageHeader, Panel } from "@/components/primitives";
-import { AI_RESPONSES, AI_SUGGESTED_PROMPTS, DEFAULT_AI_RESPONSE, INTELLIGENCE_BRIEFING } from "@/data/demo";
+import {
+  AI_RESPONSES,
+  AI_SUGGESTED_PROMPTS,
+  DEFAULT_AI_RESPONSE,
+  INTELLIGENCE_BRIEFING,
+} from "@/data/demo";
 
 export const Route = createFileRoute("/ai")({
   head: () => ({
     meta: [
       { title: "Elev8 Intelligence — Command Center" },
-      { name: "description", content: "Demonstration intelligence interface: authored briefings and record citations, no live model access." },
+      {
+        name: "description",
+        content:
+          "Demonstration intelligence interface: authored briefings and record citations, no live model access.",
+      },
       { property: "og:title", content: "Elev8 Intelligence — Command Center" },
-      { property: "og:description", content: "Founder briefing interface over the recorded register." },
+      {
+        property: "og:description",
+        content: "Founder briefing interface over the recorded register.",
+      },
     ],
   }),
   component: AiPage,
@@ -54,7 +66,9 @@ function AiPage() {
           ) : (
             turns.map((t) => (
               <div key={t.id} className="space-y-2">
-                <div className="rounded-xs border border-border bg-canvas px-3 py-2 text-[0.8125rem]">{t.question}</div>
+                <div className="rounded-xs border border-border bg-canvas px-3 py-2 text-[0.8125rem]">
+                  {t.question}
+                </div>
                 <div className="rounded-xs border border-border-strong bg-panel-elevated px-3 py-2">
                   <div className="flex items-center gap-1.5">
                     <Elev8Mark className="size-3.5 text-teal-bright" aria-hidden />
@@ -64,7 +78,11 @@ function AiPage() {
                   {t.citations.length > 0 && (
                     <div className="mt-2 flex flex-wrap gap-1.5">
                       {t.citations.map((c) => (
-                        <Link key={c.label} to={c.route} className="rounded-xs border border-border px-2 py-0.5 text-[0.6875rem] text-teal-bright hover:border-border-strong">
+                        <Link
+                          key={c.label}
+                          to={c.route}
+                          className="rounded-xs border border-border px-2 py-0.5 text-[0.6875rem] text-teal-bright hover:border-border-strong"
+                        >
                           {c.label}
                         </Link>
                       ))}
@@ -89,7 +107,10 @@ function AiPage() {
               aria-label="Ask Elev8 Intelligence"
               className="w-full rounded-xs border border-border bg-canvas px-2 py-2 text-[0.8125rem] outline-none focus:border-border-strong"
             />
-            <button type="submit" className="rounded-xs border border-border-strong bg-panel-elevated px-3 text-[0.75rem] hover:border-border-active">
+            <button
+              type="submit"
+              className="rounded-xs border border-border-strong bg-panel-elevated px-3 text-[0.75rem] hover:border-border-active"
+            >
               Ask
             </button>
           </form>
@@ -100,7 +121,11 @@ function AiPage() {
             <p className="text-[0.8125rem]">{INTELLIGENCE_BRIEFING.headline}</p>
             <div className="mt-2 flex flex-wrap gap-1.5">
               {INTELLIGENCE_BRIEFING.citations.map((c) => (
-                <Link key={c.label} to={c.route} className="rounded-xs border border-border px-2 py-0.5 text-[0.6875rem] text-teal-bright hover:border-border-strong">
+                <Link
+                  key={c.label}
+                  to={c.route}
+                  className="rounded-xs border border-border px-2 py-0.5 text-[0.6875rem] text-teal-bright hover:border-border-strong"
+                >
                   {c.label}
                 </Link>
               ))}

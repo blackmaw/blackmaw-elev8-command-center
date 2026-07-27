@@ -1,7 +1,13 @@
 import { useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Cpu, Globe, HardDrive, Network, Router, Server, CircleDashed } from "lucide-react";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { DemoBanner, KeyValue, Label, Mono, StatusPill } from "@/components/primitives";
 import { getAsset, listConnections, listNodes } from "@/data/selectors";
 import { ASSET_LIFECYCLE } from "@/domain/status";
@@ -52,7 +58,11 @@ export function InfraTopology() {
             <div
               className={cn(
                 "grid gap-2",
-                group.length === 1 ? "grid-cols-1" : group.length === 2 ? "grid-cols-2" : "grid-cols-1 sm:grid-cols-3",
+                group.length === 1
+                  ? "grid-cols-1"
+                  : group.length === 2
+                    ? "grid-cols-2"
+                    : "grid-cols-1 sm:grid-cols-3",
               )}
             >
               {group
@@ -68,15 +78,33 @@ export function InfraTopology() {
                       onClick={() => setSelectedId(node.id)}
                       className={cn(
                         "flex min-w-0 items-center gap-2 rounded-xs border bg-canvas-2 px-2.5 py-2 text-left transition-colors",
-                        active ? "border-border-active bg-panel-elevated" : "border-border hover:border-border-active",
+                        active
+                          ? "border-border-active bg-panel-elevated"
+                          : "border-border hover:border-border-active",
                       )}
                     >
-                      <Icon className={cn("size-4 shrink-0", node.state === "in_service" ? "text-teal-bright" : "text-muted-foreground")} aria-hidden />
+                      <Icon
+                        className={cn(
+                          "size-4 shrink-0",
+                          node.state === "in_service"
+                            ? "text-teal-bright"
+                            : "text-muted-foreground",
+                        )}
+                        aria-hidden
+                      />
                       <span className="min-w-0 flex-1">
-                        <span className="block truncate text-[0.75rem] font-medium">{node.label}</span>
-                        <span className="block truncate text-[0.6875rem] text-muted-foreground">{node.sublabel}</span>
+                        <span className="block truncate text-[0.75rem] font-medium">
+                          {node.label}
+                        </span>
+                        <span className="block truncate text-[0.6875rem] text-muted-foreground">
+                          {node.sublabel}
+                        </span>
                       </span>
-                      <StatusPill map={ASSET_LIFECYCLE} value={NODE_STATE[node.state] ?? node.state} dot={false} />
+                      <StatusPill
+                        map={ASSET_LIFECYCLE}
+                        value={NODE_STATE[node.state] ?? node.state}
+                        dot={false}
+                      />
                     </button>
                   );
                 })}
@@ -100,28 +128,47 @@ export function InfraTopology() {
             <div className="space-y-4 p-4">
               <div className="grid grid-cols-2 gap-3">
                 <KeyValue label="Node role" value={selected.kind} />
-                <KeyValue label="Recorded state" value={<StatusPill map={ASSET_LIFECYCLE} value={NODE_STATE[selected.state] ?? selected.state} />} />
+                <KeyValue
+                  label="Recorded state"
+                  value={
+                    <StatusPill
+                      map={ASSET_LIFECYCLE}
+                      value={NODE_STATE[selected.state] ?? selected.state}
+                    />
+                  }
+                />
               </div>
               {asset ? (
                 <div className="grid grid-cols-2 gap-3 border-t border-border pt-3">
                   <KeyValue label="Asset" value={asset.name} />
-                  <KeyValue label="Lifecycle" value={<StatusPill map={ASSET_LIFECYCLE} value={asset.lifecycle} />} />
+                  <KeyValue
+                    label="Lifecycle"
+                    value={<StatusPill map={ASSET_LIFECYCLE} value={asset.lifecycle} />}
+                  />
                   <KeyValue label="Category" value={asset.category} />
                   <KeyValue label="Assigned role" value={asset.role} />
                 </div>
               ) : (
-                <p className="text-xs text-muted-foreground">No asset record is linked to this node.</p>
+                <p className="text-xs text-muted-foreground">
+                  No asset record is linked to this node.
+                </p>
               )}
               <div className="space-y-1 border-t border-border pt-3">
                 <Label>Recorded connections</Label>
                 {linkFor(selected).map((c) => (
-                  <div key={c.id} className="flex items-center justify-between gap-2 text-[0.75rem]">
+                  <div
+                    key={c.id}
+                    className="flex items-center justify-between gap-2 text-[0.75rem]"
+                  >
                     <Mono>{c.medium}</Mono>
                     <span className="text-muted-foreground">{c.state}</span>
                   </div>
                 ))}
               </div>
-              <Link to="/infrastructure" className="inline-block text-[0.75rem] text-teal-bright hover:underline">
+              <Link
+                to="/infrastructure"
+                className="inline-block text-[0.75rem] text-teal-bright hover:underline"
+              >
                 Open infrastructure register
               </Link>
             </div>

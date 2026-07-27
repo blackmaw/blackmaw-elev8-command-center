@@ -40,7 +40,12 @@ const READ: PermissionKey[] = [
 ];
 
 export const ROLES: Record<RoleKey, Role> = {
-  founder: { key: "founder", name: "Founder", description: "Full authority across every organization and workspace.", permissions: ALL },
+  founder: {
+    key: "founder",
+    name: "Founder",
+    description: "Full authority across every organization and workspace.",
+    permissions: ALL,
+  },
   executive_administrator: {
     key: "executive_administrator",
     name: "Executive Administrator",
@@ -59,11 +64,36 @@ export const ROLES: Record<RoleKey, Role> = {
     description: "Owns stage progression and requests freezes and releases.",
     permissions: [...READ, "product.manage", "stage.approve", "document.manage"],
   },
-  engineer: { key: "engineer", name: "Engineer", description: "Executes engineering work and records checkpoints.", permissions: [...READ, "product.manage"] },
-  product_manager: { key: "product_manager", name: "Product Manager", description: "Owns roadmap, scope, and acceptance criteria.", permissions: [...READ, "product.manage", "document.manage"] },
-  operations_manager: { key: "operations_manager", name: "Operations Manager", description: "Owns infrastructure registry and maintenance.", permissions: [...READ, "infrastructure.manage"] },
-  auditor: { key: "auditor", name: "Auditor", description: "Read-only access plus the full audit ledger.", permissions: [...READ, "audit.read"] },
-  read_only: { key: "read_only", name: "Read Only", description: "Read access to non-sensitive records.", permissions: READ },
+  engineer: {
+    key: "engineer",
+    name: "Engineer",
+    description: "Executes engineering work and records checkpoints.",
+    permissions: [...READ, "product.manage"],
+  },
+  product_manager: {
+    key: "product_manager",
+    name: "Product Manager",
+    description: "Owns roadmap, scope, and acceptance criteria.",
+    permissions: [...READ, "product.manage", "document.manage"],
+  },
+  operations_manager: {
+    key: "operations_manager",
+    name: "Operations Manager",
+    description: "Owns infrastructure registry and maintenance.",
+    permissions: [...READ, "infrastructure.manage"],
+  },
+  auditor: {
+    key: "auditor",
+    name: "Auditor",
+    description: "Read-only access plus the full audit ledger.",
+    permissions: [...READ, "audit.read"],
+  },
+  read_only: {
+    key: "read_only",
+    name: "Read Only",
+    description: "Read access to non-sensitive records.",
+    permissions: READ,
+  },
 };
 
 export interface AuthScope {
@@ -80,7 +110,8 @@ export function can(
   const role = ROLES[scope.role];
   if (!role) return false;
   if (!role.permissions.includes(permission)) return false;
-  if (target?.organization_id && !scope.organization_ids.includes(target.organization_id)) return false;
+  if (target?.organization_id && !scope.organization_ids.includes(target.organization_id))
+    return false;
   if (target?.workspace_id && !scope.workspace_ids.includes(target.workspace_id)) return false;
   return true;
 }

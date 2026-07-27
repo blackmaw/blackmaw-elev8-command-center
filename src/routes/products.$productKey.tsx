@@ -1,6 +1,14 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { DataTable } from "@/components/DataTable";
-import { DemoBanner, KeyValue, Mono, PageHeader, Panel, ProgressBar, StatusPill } from "@/components/primitives";
+import {
+  DemoBanner,
+  KeyValue,
+  Mono,
+  PageHeader,
+  Panel,
+  ProgressBar,
+  StatusPill,
+} from "@/components/primitives";
 import { getProduct, listStages } from "@/data/selectors";
 import { HEALTH, LIFECYCLE, STAGE_STATE } from "@/domain/status";
 
@@ -15,7 +23,10 @@ export const Route = createFileRoute("/products/$productKey")({
     return {
       meta: [
         { title: `${name} — Elev8 Command Center` },
-        { name: "description", content: loaderData?.product.summary ?? "Product record unavailable." },
+        {
+          name: "description",
+          content: loaderData?.product.summary ?? "Product record unavailable.",
+        },
         { property: "og:title", content: `${name} — Elev8 Command Center` },
         { property: "og:description", content: loaderData?.product.summary ?? "Product record." },
         ...(loaderData ? [] : [{ name: "robots", content: "noindex" }]),
@@ -36,14 +47,27 @@ function ProductDetail() {
       </PageHeader>
 
       <div className="grid gap-3 xl:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
-        <Panel title="Stage register" subtitle="Sequenced gates — each transition requires a recorded human decision" dense>
+        <Panel
+          title="Stage register"
+          subtitle="Sequenced gates — each transition requires a recorded human decision"
+          dense
+        >
           <DataTable
             rows={stages}
             columns={[
               { key: "code", header: "Code", width: "7rem", render: (s) => <Mono>{s.code}</Mono> },
               { key: "name", header: "Stage", render: (s) => s.name },
-              { key: "objective", header: "Objective", render: (s) => s.objective, secondary: true },
-              { key: "state", header: "State", render: (s) => <StatusPill map={STAGE_STATE} value={s.state} /> },
+              {
+                key: "objective",
+                header: "Objective",
+                render: (s) => s.objective,
+                secondary: true,
+              },
+              {
+                key: "state",
+                header: "State",
+                render: (s) => <StatusPill map={STAGE_STATE} value={s.state} />,
+              },
             ]}
           />
         </Panel>

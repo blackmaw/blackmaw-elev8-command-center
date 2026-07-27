@@ -26,8 +26,13 @@ export function queryActivity(q: ActivityQuery = {}): ActivityEvent[] {
 
 /** Changes recorded in the trailing window, used by "what changed today?". */
 export function recentChanges(days = 7, workspaceId?: WorkspaceKey) {
-  const latest = db.activityEvents.reduce((max, e) => (e.occurred_at > max ? e.occurred_at : max), "");
-  const since = new Date(new Date(latest || Date.now()).getTime() - days * 86_400_000).toISOString();
+  const latest = db.activityEvents.reduce(
+    (max, e) => (e.occurred_at > max ? e.occurred_at : max),
+    "",
+  );
+  const since = new Date(
+    new Date(latest || Date.now()).getTime() - days * 86_400_000,
+  ).toISOString();
   return queryActivity({ since, workspaceId });
 }
 
@@ -36,8 +41,14 @@ export function recentChanges(days = 7, workspaceId?: WorkspaceKey) {
  * through this factory so the ledger stays the only write path. The current
  * demonstration layer is read-only; the persistence adapter will call this.
  */
-export function composeEvent(input: Omit<ActivityEvent, "id" | "provenance"> & { provenance?: ActivityEvent["provenance"] }): ActivityEvent {
-  return { id: `act-${input.occurred_at}-${input.kind}`, provenance: input.provenance ?? "manually_recorded", ...input };
+export function composeEvent(
+  input: Omit<ActivityEvent, "id" | "provenance"> & { provenance?: ActivityEvent["provenance"] },
+): ActivityEvent {
+  return {
+    id: `act-${input.occurred_at}-${input.kind}`,
+    provenance: input.provenance ?? "manually_recorded",
+    ...input,
+  };
 }
 
 export function notificationsForWorkspace(workspaceId?: WorkspaceKey): Notification[] {

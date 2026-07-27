@@ -8,7 +8,10 @@ export const Route = createFileRoute("/products/")({
   head: () => ({
     meta: [
       { title: "Product Portfolio — Elev8 Command Center" },
-      { name: "description", content: "Every product record, its lifecycle, health, and governing phase." },
+      {
+        name: "description",
+        content: "Every product record, its lifecycle, health, and governing phase.",
+      },
       { property: "og:title", content: "Product Portfolio — Elev8 Command Center" },
       { property: "og:description", content: "Product records, lifecycle, and stage-gate state." },
     ],
@@ -22,19 +25,37 @@ function ProductsIndex() {
 
   return (
     <div className="mx-auto max-w-[1600px] space-y-4 p-4 lg:p-6">
-      <PageHeader title="Product Portfolio" descriptor="Canonical product records across all workspaces." provenance="demonstration">
+      <PageHeader
+        title="Product Portfolio"
+        descriptor="Canonical product records across all workspaces."
+        provenance="demonstration"
+      >
         <DemoBanner />
       </PageHeader>
       <Panel dense>
         <DataTable
           rows={products}
-          onRowClick={(p) => navigate({ to: "/products/$productKey", params: { productKey: p.key } })}
+          onRowClick={(p) =>
+            navigate({ to: "/products/$productKey", params: { productKey: p.key } })
+          }
           columns={[
-            { key: "name", header: "Product", render: (p) => <span className="font-medium">{p.name}</span> },
+            {
+              key: "name",
+              header: "Product",
+              render: (p) => <span className="font-medium">{p.name}</span>,
+            },
             { key: "type", header: "Type", render: (p) => p.type, secondary: true },
             { key: "phase", header: "Phase", render: (p) => p.current_phase, secondary: true },
-            { key: "lifecycle", header: "Lifecycle", render: (p) => <StatusPill map={LIFECYCLE} value={p.lifecycle} /> },
-            { key: "health", header: "Health", render: (p) => <StatusPill map={HEALTH} value={p.health} /> },
+            {
+              key: "lifecycle",
+              header: "Lifecycle",
+              render: (p) => <StatusPill map={LIFECYCLE} value={p.lifecycle} />,
+            },
+            {
+              key: "health",
+              header: "Health",
+              render: (p) => <StatusPill map={HEALTH} value={p.health} />,
+            },
             {
               key: "progress",
               header: "Progress",

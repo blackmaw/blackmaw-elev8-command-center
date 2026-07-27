@@ -25,7 +25,13 @@ export function Elev8Mark({ className }: { className?: string }) {
   );
 }
 
-export function BrandMark({ collapsed = false, className }: { collapsed?: boolean; className?: string }) {
+export function BrandMark({
+  collapsed = false,
+  className,
+}: {
+  collapsed?: boolean;
+  className?: string;
+}) {
   return (
     <div className={cn("flex items-center gap-2.5", className)}>
       <div

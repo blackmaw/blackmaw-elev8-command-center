@@ -8,7 +8,11 @@ export const Route = createFileRoute("/repositories/")({
   head: () => ({
     meta: [
       { title: "Repository Center — Elev8 Command Center" },
-      { name: "description", content: "Tracked repositories with recorded branch, commit, verification, and review state." },
+      {
+        name: "description",
+        content:
+          "Tracked repositories with recorded branch, commit, verification, and review state.",
+      },
       { property: "og:title", content: "Repository Center — Elev8 Command Center" },
       { property: "og:description", content: "Repository register with manually verified state." },
     ],
@@ -33,15 +37,44 @@ function RepositoriesIndex() {
       <Panel dense>
         <DataTable
           rows={repos}
-          onRowClick={(r) => navigate({ to: "/repositories/$repositoryId", params: { repositoryId: r.id } })}
+          onRowClick={(r) =>
+            navigate({ to: "/repositories/$repositoryId", params: { repositoryId: r.id } })
+          }
           columns={[
-            { key: "name", header: "Repository", render: (r) => <Mono className="font-medium">{r.name}</Mono> },
-            { key: "product", header: "Product", render: (r) => productName(r.product_id), secondary: true },
+            {
+              key: "name",
+              header: "Repository",
+              render: (r) => <Mono className="font-medium">{r.name}</Mono>,
+            },
+            {
+              key: "product",
+              header: "Product",
+              render: (r) => productName(r.product_id),
+              secondary: true,
+            },
             { key: "branch", header: "Branch", render: (r) => <Mono>{r.current_branch}</Mono> },
-            { key: "commit", header: "Latest recorded commit", render: (r) => <Mono>{r.latest_commit}</Mono> },
-            { key: "tree", header: "Working tree", render: (r) => <StatusPill map={WORKING_TREE} value={r.working_tree} />, secondary: true },
-            { key: "ci", header: "CI", render: (r) => <StatusPill map={GATE_STATE} value={r.ci_status} dot={false} />, secondary: true },
-            { key: "integration", header: "Integration", render: (r) => <StatusPill map={INTEGRATION_STATE} value={r.integration_state} /> },
+            {
+              key: "commit",
+              header: "Latest recorded commit",
+              render: (r) => <Mono>{r.latest_commit}</Mono>,
+            },
+            {
+              key: "tree",
+              header: "Working tree",
+              render: (r) => <StatusPill map={WORKING_TREE} value={r.working_tree} />,
+              secondary: true,
+            },
+            {
+              key: "ci",
+              header: "CI",
+              render: (r) => <StatusPill map={GATE_STATE} value={r.ci_status} dot={false} />,
+              secondary: true,
+            },
+            {
+              key: "integration",
+              header: "Integration",
+              render: (r) => <StatusPill map={INTEGRATION_STATE} value={r.integration_state} />,
+            },
           ]}
         />
       </Panel>

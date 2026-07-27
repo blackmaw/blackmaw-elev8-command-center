@@ -8,7 +8,11 @@ export const Route = createFileRoute("/infrastructure/topology")({
   head: () => ({
     meta: [
       { title: "Infrastructure Topology — Elev8 Command Center" },
-      { name: "description", content: "Interactive recorded topology from transit to compute, storage, and reserved capacity." },
+      {
+        name: "description",
+        content:
+          "Interactive recorded topology from transit to compute, storage, and reserved capacity.",
+      },
       { property: "og:title", content: "Infrastructure Topology — Elev8 Command Center" },
       { property: "og:description", content: "Recorded network and compute topology." },
     ],
@@ -37,10 +41,24 @@ function TopologyPage() {
         <DataTable
           rows={connections}
           columns={[
-            { key: "from", header: "From", render: (c) => getNode(c.from_node_id)?.label ?? c.from_node_id },
-            { key: "to", header: "To", render: (c) => getNode(c.to_node_id)?.label ?? c.to_node_id },
+            {
+              key: "from",
+              header: "From",
+              render: (c) => getNode(c.from_node_id)?.label ?? c.from_node_id,
+            },
+            {
+              key: "to",
+              header: "To",
+              render: (c) => getNode(c.to_node_id)?.label ?? c.to_node_id,
+            },
             { key: "medium", header: "Medium", render: (c) => <Mono>{c.medium}</Mono> },
-            { key: "state", header: "State", render: (c) => <Tag tone={c.state === "installed" ? "success" : "muted"}>{c.state}</Tag> },
+            {
+              key: "state",
+              header: "State",
+              render: (c) => (
+                <Tag tone={c.state === "installed" ? "success" : "muted"}>{c.state}</Tag>
+              ),
+            },
           ]}
         />
       </Panel>

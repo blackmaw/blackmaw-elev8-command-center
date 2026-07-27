@@ -1,6 +1,13 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { DataTable } from "@/components/DataTable";
-import { DemoBanner, Mono, PageHeader, Panel, ProgressBar, StatusPill } from "@/components/primitives";
+import {
+  DemoBanner,
+  Mono,
+  PageHeader,
+  Panel,
+  ProgressBar,
+  StatusPill,
+} from "@/components/primitives";
 import { listReleases, productName } from "@/data/selectors";
 import { RELEASE_STATE } from "@/domain/status";
 
@@ -8,7 +15,10 @@ export const Route = createFileRoute("/releases/")({
   head: () => ({
     meta: [
       { title: "Release Sequence — Elev8 Command Center" },
-      { name: "description", content: "Release candidates with their mandatory readiness checks and approval state." },
+      {
+        name: "description",
+        content: "Release candidates with their mandatory readiness checks and approval state.",
+      },
       { property: "og:title", content: "Release Sequence — Elev8 Command Center" },
       { property: "og:description", content: "Release readiness and mandatory checks." },
     ],
@@ -35,11 +45,30 @@ function ReleasesIndex() {
           rows={releases}
           onRowClick={(r) => navigate({ to: "/releases/$releaseId", params: { releaseId: r.id } })}
           columns={[
-            { key: "name", header: "Release", render: (r) => <span className="font-medium">{r.name}</span> },
-            { key: "product", header: "Product", render: (r) => productName(r.product_id), secondary: true },
+            {
+              key: "name",
+              header: "Release",
+              render: (r) => <span className="font-medium">{r.name}</span>,
+            },
+            {
+              key: "product",
+              header: "Product",
+              render: (r) => productName(r.product_id),
+              secondary: true,
+            },
             { key: "version", header: "Version", render: (r) => <Mono>{r.version}</Mono> },
-            { key: "channel", header: "Channel", render: (r) => r.channel.replace(/_/g, " "), secondary: true },
-            { key: "target", header: "Target", render: (r) => <span className="num">{r.target_on}</span>, secondary: true },
+            {
+              key: "channel",
+              header: "Channel",
+              render: (r) => r.channel.replace(/_/g, " "),
+              secondary: true,
+            },
+            {
+              key: "target",
+              header: "Target",
+              render: (r) => <span className="num">{r.target_on}</span>,
+              secondary: true,
+            },
             {
               key: "checks",
               header: "Checks passed",
@@ -48,7 +77,10 @@ function ReleasesIndex() {
                 const passed = r.checks.filter((c) => c.state === "passed").length;
                 return (
                   <div className="flex items-center gap-2">
-                    <ProgressBar value={Math.round((passed / r.checks.length) * 100)} className="w-20" />
+                    <ProgressBar
+                      value={Math.round((passed / r.checks.length) * 100)}
+                      className="w-20"
+                    />
                     <span className="num text-xs">
                       {passed}/{r.checks.length}
                     </span>
@@ -56,7 +88,11 @@ function ReleasesIndex() {
                 );
               },
             },
-            { key: "state", header: "State", render: (r) => <StatusPill map={RELEASE_STATE} value={r.state} /> },
+            {
+              key: "state",
+              header: "State",
+              render: (r) => <StatusPill map={RELEASE_STATE} value={r.state} />,
+            },
           ]}
         />
       </Panel>

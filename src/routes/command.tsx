@@ -1,5 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { AlertTriangle, ArrowRight, Boxes, Building2, CheckCircle2, Camera, FileStack, Gauge, GitBranch, HardDrive, Sparkles } from "lucide-react";
+import {
+  AlertTriangle,
+  ArrowRight,
+  Boxes,
+  Building2,
+  CheckCircle2,
+  Camera,
+  FileStack,
+  Gauge,
+  GitBranch,
+  HardDrive,
+  Sparkles,
+} from "lucide-react";
 import { DataTable } from "@/components/DataTable";
 import {
   KeyValue,
@@ -39,9 +51,16 @@ export const Route = createFileRoute("/command")({
   head: () => ({
     meta: [
       { title: "Command Overview — Elev8 Command Center" },
-      { name: "description", content: "Cross-portfolio operating picture: current priority, approvals, risks, and portfolio state." },
+      {
+        name: "description",
+        content:
+          "Cross-portfolio operating picture: current priority, approvals, risks, and portfolio state.",
+      },
       { property: "og:title", content: "Command Overview — Elev8 Command Center" },
-      { property: "og:description", content: "Cross-portfolio operating picture for Bell Cap Group LLC." },
+      {
+        property: "og:description",
+        content: "Cross-portfolio operating picture for Bell Cap Group LLC.",
+      },
     ],
   }),
   component: CommandOverview,
@@ -64,8 +83,12 @@ function CommandOverview() {
       <header className="flex flex-col gap-2 border-b border-border pb-3">
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3 sm:flex sm:flex-wrap sm:justify-between">
           <div className="min-w-0">
-            <h1 className="truncate text-[1.0625rem] font-semibold tracking-[0.12em]">COMMAND OVERVIEW</h1>
-            <p className="truncate text-xs text-muted-foreground">Enterprise Operations &amp; Engineering System</p>
+            <h1 className="truncate text-[1.0625rem] font-semibold tracking-[0.12em]">
+              COMMAND OVERVIEW
+            </h1>
+            <p className="truncate text-xs text-muted-foreground">
+              Enterprise Operations &amp; Engineering System
+            </p>
           </div>
           <div className="flex shrink-0 flex-wrap items-center gap-2">
             <ProvenanceTag value="demonstration" />
@@ -85,7 +108,11 @@ function CommandOverview() {
             { label: "Environment", value: SYSTEM_STATE.environment, tone: "warning" },
             { label: "Mode", value: SYSTEM_STATE.operational_mode, tone: "teal" },
             { label: "Data", value: "Demonstration records", tone: "warning" },
-            { label: "Last verified sync", value: new Date(SYSTEM_STATE.last_sync_at).toLocaleString(), tone: "info" },
+            {
+              label: "Last verified sync",
+              value: new Date(SYSTEM_STATE.last_sync_at).toLocaleString(),
+              tone: "info",
+            },
           ]}
         />
       </header>
@@ -118,14 +145,22 @@ function CommandOverview() {
                     <StatusPill map={LIFECYCLE} value={priority.product.lifecycle} />
                     <StatusPill map={HEALTH} value={priority.product.health} />
                   </div>
-                  <p className="mt-1 text-[0.8125rem] text-muted-foreground">{priority.product.summary}</p>
+                  <p className="mt-1 text-[0.8125rem] text-muted-foreground">
+                    {priority.product.summary}
+                  </p>
                 </div>
               </div>
               <div className="grid gap-3 sm:grid-cols-2">
                 <KeyValue label="Phase" value={priority.phase} />
                 <KeyValue label="Release status" value={priority.release_status} />
-                <KeyValue label="Last completed action" value={priority.resume.last_completed_action} />
-                <KeyValue label="Next required action" value={priority.resume.next_required_action} />
+                <KeyValue
+                  label="Last completed action"
+                  value={priority.resume.last_completed_action}
+                />
+                <KeyValue
+                  label="Next required action"
+                  value={priority.resume.next_required_action}
+                />
                 <KeyValue label="Working branch" value={<Mono>{priority.resume.branch}</Mono>} />
                 <KeyValue label="Owner" value={getUserName(priority.resume.owner_id)} />
               </div>
@@ -137,10 +172,18 @@ function CommandOverview() {
                 >
                   View product
                 </Link>
-                <button type="button" onClick={() => setPaletteOpen(true)} className="rounded-xs border border-border-strong px-2.5 py-1.5 text-[0.75rem] hover:bg-panel-elevated">
+                <button
+                  type="button"
+                  onClick={() => setPaletteOpen(true)}
+                  className="rounded-xs border border-border-strong px-2.5 py-1.5 text-[0.75rem] hover:bg-panel-elevated"
+                >
                   Record checkpoint
                 </button>
-                <button type="button" onClick={() => setIntelOpen(true)} className="rounded-xs border border-border-strong px-2.5 py-1.5 text-[0.75rem] hover:bg-panel-elevated">
+                <button
+                  type="button"
+                  onClick={() => setIntelOpen(true)}
+                  className="rounded-xs border border-border-strong px-2.5 py-1.5 text-[0.75rem] hover:bg-panel-elevated"
+                >
                   View blockers
                 </button>
               </div>
@@ -158,7 +201,12 @@ function CommandOverview() {
                 </>
               )}
               <div className="flex items-center gap-3 border-t border-border pt-3">
-                <RadialProgress value={priority.product.progress} size={60} tone="teal" label="Product completion" />
+                <RadialProgress
+                  value={priority.product.progress}
+                  size={60}
+                  tone="teal"
+                  label="Product completion"
+                />
                 <div className="min-w-0 flex-1">
                   <Label>Completion</Label>
                   <ProgressBar value={priority.product.progress} className="mt-1.5" />
@@ -170,18 +218,64 @@ function CommandOverview() {
         </Panel>
 
         <SectionGrid className="grid-cols-2 gap-2 lg:grid-cols-4 2xl:grid-cols-2">
-          <MetricTile icon={Building2} label="Organizations" value={metrics.activeOrganizations} hint="Active entities" tone="info" />
-          <MetricTile icon={Gauge} label="Products" value={metrics.activeProducts} hint="Portfolio records" tone="teal" />
-          <MetricTile icon={GitBranch} label="Projects" value={metrics.activeProjects} hint="Open engagements" tone="teal" />
-          <MetricTile icon={CheckCircle2} label="Pending approvals" value={metrics.pendingApprovals} hint="Awaiting human decision" tone="warning" />
-          <MetricTile icon={AlertTriangle} label="Blockers" value={metrics.openBlockers} hint="Open or mitigating" tone="critical" />
-          <MetricTile icon={HardDrive} label="Infrastructure assets" value={metrics.infrastructureAssets} hint="Registered equipment" tone="success" />
-          <MetricTile icon={FileStack} label="Doc coverage" value={`${metrics.documentationCoverage}%`} hint="Approved documents" tone="neutral" />
+          <MetricTile
+            icon={Building2}
+            label="Organizations"
+            value={metrics.activeOrganizations}
+            hint="Active entities"
+            tone="info"
+          />
+          <MetricTile
+            icon={Gauge}
+            label="Products"
+            value={metrics.activeProducts}
+            hint="Portfolio records"
+            tone="teal"
+          />
+          <MetricTile
+            icon={GitBranch}
+            label="Projects"
+            value={metrics.activeProjects}
+            hint="Open engagements"
+            tone="teal"
+          />
+          <MetricTile
+            icon={CheckCircle2}
+            label="Pending approvals"
+            value={metrics.pendingApprovals}
+            hint="Awaiting human decision"
+            tone="warning"
+          />
+          <MetricTile
+            icon={AlertTriangle}
+            label="Blockers"
+            value={metrics.openBlockers}
+            hint="Open or mitigating"
+            tone="critical"
+          />
+          <MetricTile
+            icon={HardDrive}
+            label="Infrastructure assets"
+            value={metrics.infrastructureAssets}
+            hint="Registered equipment"
+            tone="success"
+          />
+          <MetricTile
+            icon={FileStack}
+            label="Doc coverage"
+            value={`${metrics.documentationCoverage}%`}
+            hint="Approved documents"
+            tone="neutral"
+          />
           <MetricTile
             icon={Camera}
             label="Latest snapshot"
             value={metrics.latestSnapshot?.identifier ?? "—"}
-            hint={metrics.latestSnapshot ? `${metrics.latestSnapshot.taken_on} · ${metrics.latestSnapshot.version}` : "None registered"}
+            hint={
+              metrics.latestSnapshot
+                ? `${metrics.latestSnapshot.taken_on} · ${metrics.latestSnapshot.version}`
+                : "None registered"
+            }
             tone="info"
           />
         </SectionGrid>
@@ -191,7 +285,10 @@ function CommandOverview() {
         title="Product portfolio health"
         subtitle="Recorded lifecycle, gate, and completion state per product"
         actions={
-          <Link to="/products" className="rounded-xs border border-border-strong px-2.5 py-1.5 text-[0.75rem] hover:bg-panel-elevated">
+          <Link
+            to="/products"
+            className="rounded-xs border border-border-strong px-2.5 py-1.5 text-[0.75rem] hover:bg-panel-elevated"
+          >
             View portfolio
           </Link>
         }
@@ -208,9 +305,7 @@ function CommandOverview() {
         <Panel
           title="Infrastructure topology"
           subtitle="Recorded network and compute path — select a node for its asset record"
-          actions={
-            <span className="label-caps">Demonstration data</span>
-          }
+          actions={<span className="label-caps">Demonstration data</span>}
           dense
         >
           <InfraTopology />
@@ -224,9 +319,7 @@ function CommandOverview() {
       <Panel
         title="Repository overview"
         subtitle="Manually recorded repository state — no provider integration is connected"
-        actions={
-          <span className="label-caps">Manually recorded</span>
-        }
+        actions={<span className="label-caps">Manually recorded</span>}
         dense
       >
         <RepositoryOverview />
@@ -239,8 +332,16 @@ function CommandOverview() {
             columns={[
               { key: "title", header: "Milestone", render: (m) => m.title },
               { key: "gate", header: "Gate", render: (m) => m.gate_type, secondary: true },
-              { key: "due", header: "Target", render: (m) => <span className="num">{m.due_on}</span> },
-              { key: "state", header: "Readiness", render: (m) => <StatusPill map={STAGE_STATE} value={m.state} /> },
+              {
+                key: "due",
+                header: "Target",
+                render: (m) => <span className="num">{m.due_on}</span>,
+              },
+              {
+                key: "state",
+                header: "Readiness",
+                render: (m) => <StatusPill map={STAGE_STATE} value={m.state} />,
+              },
             ]}
           />
         </Panel>
@@ -248,7 +349,9 @@ function CommandOverview() {
         <Panel title="Founder insight" subtitle="Demonstration briefing" bodyClassName="p-3">
           <div className="space-y-2">
             <div className="label-caps text-warning">Demonstration briefing</div>
-            <p className="text-[0.8125rem] leading-relaxed text-muted-foreground">{INTELLIGENCE_BRIEFING.headline}</p>
+            <p className="text-[0.8125rem] leading-relaxed text-muted-foreground">
+              {INTELLIGENCE_BRIEFING.headline}
+            </p>
             <div className="space-y-1 border-t border-border pt-2">
               <Label>Referenced records</Label>
               {INTELLIGENCE_BRIEFING.citations.map((c) => (
@@ -265,9 +368,24 @@ function CommandOverview() {
             rows={snapshots}
             columns={[
               { key: "id", header: "Snapshot", render: (s) => <Mono>{s.identifier}</Mono> },
-              { key: "product", header: "Product", render: (s) => productName(s.product_id), secondary: true },
-              { key: "taken", header: "Recorded", render: (s) => <span className="num">{s.taken_on}</span> },
-              { key: "state", header: "Validation", render: (s) => <StatusPill map={GATE_STATE} value={s.validation_state} dot={false} /> },
+              {
+                key: "product",
+                header: "Product",
+                render: (s) => productName(s.product_id),
+                secondary: true,
+              },
+              {
+                key: "taken",
+                header: "Recorded",
+                render: (s) => <span className="num">{s.taken_on}</span>,
+              },
+              {
+                key: "state",
+                header: "Validation",
+                render: (s) => (
+                  <StatusPill map={GATE_STATE} value={s.validation_state} dot={false} />
+                ),
+              },
             ]}
           />
         </Panel>
@@ -277,22 +395,44 @@ function CommandOverview() {
             rows={risks}
             columns={[
               { key: "title", header: "Risk", render: (r) => r.title },
-              { key: "product", header: "Product", render: (r) => productName(r.product_id), secondary: true },
-              { key: "sev", header: "Severity", render: (r) => <StatusPill map={SEVERITY} value={r.severity} /> },
+              {
+                key: "product",
+                header: "Product",
+                render: (r) => productName(r.product_id),
+                secondary: true,
+              },
+              {
+                key: "sev",
+                header: "Severity",
+                render: (r) => <StatusPill map={SEVERITY} value={r.severity} />,
+              },
               { key: "state", header: "State", render: (r) => <Mono>{r.state}</Mono> },
             ]}
           />
         </Panel>
       </div>
 
-      <Panel title="Awaiting human approval" subtitle="No transition advances without a recorded decision" dense>
+      <Panel
+        title="Awaiting human approval"
+        subtitle="No transition advances without a recorded decision"
+        dense
+      >
         <DataTable
           rows={approvals}
           columns={[
             { key: "title", header: "Subject", render: (a) => a.title },
-            { key: "type", header: "Related entity", render: (a) => <Mono>{a.subject_type}</Mono>, secondary: true },
+            {
+              key: "type",
+              header: "Related entity",
+              render: (a) => <Mono>{a.subject_type}</Mono>,
+              secondary: true,
+            },
             { key: "approver", header: "Approver", render: (a) => getUserName(a.approver_id) },
-            { key: "state", header: "Decision", render: () => <StatusPill map={STAGE_STATE} value="review_required" /> },
+            {
+              key: "state",
+              header: "Decision",
+              render: () => <StatusPill map={STAGE_STATE} value="review_required" />,
+            },
           ]}
           emptyTitle="No pending approvals"
         />
@@ -311,10 +451,25 @@ function CommandOverview() {
         <DataTable
           rows={activity}
           columns={[
-            { key: "when", header: "Recorded", width: "12rem", render: (a) => <Mono>{new Date(a.occurred_at).toLocaleString()}</Mono> },
-            { key: "kind", header: "Event", render: (a) => <Mono>{a.kind.replace(/_/g, " ")}</Mono>, secondary: true },
+            {
+              key: "when",
+              header: "Recorded",
+              width: "12rem",
+              render: (a) => <Mono>{new Date(a.occurred_at).toLocaleString()}</Mono>,
+            },
+            {
+              key: "kind",
+              header: "Event",
+              render: (a) => <Mono>{a.kind.replace(/_/g, " ")}</Mono>,
+              secondary: true,
+            },
             { key: "summary", header: "Summary", render: (a) => a.summary },
-            { key: "actor", header: "Actor", render: (a) => getUserName(a.actor_id), secondary: true },
+            {
+              key: "actor",
+              header: "Actor",
+              render: (a) => getUserName(a.actor_id),
+              secondary: true,
+            },
           ]}
         />
       </Panel>

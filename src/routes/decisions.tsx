@@ -1,8 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { DataTable } from "@/components/DataTable";
-import { DemoBanner, KeyValue, Label, Mono, PageHeader, Panel, StatusPill } from "@/components/primitives";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import {
+  DemoBanner,
+  KeyValue,
+  Label,
+  Mono,
+  PageHeader,
+  Panel,
+  StatusPill,
+} from "@/components/primitives";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { listDecisions, productName } from "@/data/selectors";
 import { DECISION_STATE } from "@/domain/status";
 import type { Decision } from "@/domain/types";
@@ -11,7 +25,11 @@ export const Route = createFileRoute("/decisions")({
   head: () => ({
     meta: [
       { title: "Decision Register — Elev8 Command Center" },
-      { name: "description", content: "Architecture and governance decision records with context, alternatives, and consequences." },
+      {
+        name: "description",
+        content:
+          "Architecture and governance decision records with context, alternatives, and consequences.",
+      },
       { property: "og:title", content: "Decision Register — Elev8 Command Center" },
       { property: "og:description", content: "ADR register across products and entities." },
     ],
@@ -38,11 +56,29 @@ function DecisionsPage() {
           rows={decisions}
           onRowClick={(d) => setSelected(d)}
           columns={[
-            { key: "identifier", header: "Identifier", render: (d) => <Mono className="font-medium">{d.identifier}</Mono> },
+            {
+              key: "identifier",
+              header: "Identifier",
+              render: (d) => <Mono className="font-medium">{d.identifier}</Mono>,
+            },
             { key: "title", header: "Decision", render: (d) => d.title },
-            { key: "product", header: "Product", render: (d) => productName(d.product_id), secondary: true },
-            { key: "decided", header: "Decided", render: (d) => <span className="num">{d.decided_on ?? "Pending"}</span>, secondary: true },
-            { key: "state", header: "State", render: (d) => <StatusPill map={DECISION_STATE} value={d.state} /> },
+            {
+              key: "product",
+              header: "Product",
+              render: (d) => productName(d.product_id),
+              secondary: true,
+            },
+            {
+              key: "decided",
+              header: "Decided",
+              render: (d) => <span className="num">{d.decided_on ?? "Pending"}</span>,
+              secondary: true,
+            },
+            {
+              key: "state",
+              header: "State",
+              render: (d) => <StatusPill map={DECISION_STATE} value={d.state} />,
+            },
           ]}
         />
       </Panel>
@@ -60,7 +96,10 @@ function DecisionsPage() {
 
               <div className="mt-4 grid grid-cols-2 gap-3">
                 <KeyValue label="Product" value={productName(selected.product_id)} />
-                <KeyValue label="State" value={<StatusPill map={DECISION_STATE} value={selected.state} />} />
+                <KeyValue
+                  label="State"
+                  value={<StatusPill map={DECISION_STATE} value={selected.state} />}
+                />
                 <KeyValue label="Decided on" value={selected.decided_on ?? "Not decided"} />
               </div>
 

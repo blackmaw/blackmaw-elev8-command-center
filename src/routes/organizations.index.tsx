@@ -8,9 +8,15 @@ export const Route = createFileRoute("/organizations/")({
   head: () => ({
     meta: [
       { title: "Organization Registry — Elev8 Command Center" },
-      { name: "description", content: "Legal entities, parent relationships, owners, and formation state." },
+      {
+        name: "description",
+        content: "Legal entities, parent relationships, owners, and formation state.",
+      },
       { property: "og:title", content: "Organization Registry — Elev8 Command Center" },
-      { property: "og:description", content: "Bell Cap Group entity registry and formation status." },
+      {
+        property: "og:description",
+        content: "Bell Cap Group entity registry and formation status.",
+      },
     ],
   }),
   component: OrganizationsIndex,
@@ -32,15 +38,39 @@ function OrganizationsIndex() {
       <Panel dense>
         <DataTable
           rows={orgs}
-          onRowClick={(o) => navigate({ to: "/organizations/$organizationId", params: { organizationId: o.id } })}
+          onRowClick={(o) =>
+            navigate({ to: "/organizations/$organizationId", params: { organizationId: o.id } })
+          }
           columns={[
-            { key: "name", header: "Organization", render: (o) => <span className="font-medium">{o.name}</span> },
+            {
+              key: "name",
+              header: "Organization",
+              render: (o) => <span className="font-medium">{o.name}</span>,
+            },
             { key: "legal", header: "Legal name", render: (o) => o.legal_name, secondary: true },
             { key: "kind", header: "Entity type", render: (o) => o.kind },
-            { key: "parent", header: "Parent", render: (o) => orgs.find((p) => p.id === o.parent_id)?.name ?? "—", secondary: true },
-            { key: "owner", header: "Owner", render: (o) => getUserName(o.owner_id), secondary: true },
-            { key: "status", header: "Formation", render: (o) => <StatusPill map={ENTITY_STATUS} value={o.status} /> },
-            { key: "verify", header: "Verification", render: (o) => <StatusPill map={ENTITY_STATUS} value={o.ein_state} /> },
+            {
+              key: "parent",
+              header: "Parent",
+              render: (o) => orgs.find((p) => p.id === o.parent_id)?.name ?? "—",
+              secondary: true,
+            },
+            {
+              key: "owner",
+              header: "Owner",
+              render: (o) => getUserName(o.owner_id),
+              secondary: true,
+            },
+            {
+              key: "status",
+              header: "Formation",
+              render: (o) => <StatusPill map={ENTITY_STATUS} value={o.status} />,
+            },
+            {
+              key: "verify",
+              header: "Verification",
+              render: (o) => <StatusPill map={ENTITY_STATUS} value={o.ein_state} />,
+            },
           ]}
         />
       </Panel>

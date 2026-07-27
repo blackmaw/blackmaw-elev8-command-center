@@ -118,7 +118,11 @@ export const listRisks = (filter?: { productId?: ID; workspaceId?: string }) =>
 export const listNotifications = () =>
   demo.notifications.slice().sort((a, b) => b.occurred_at.localeCompare(a.occurred_at));
 
-export const listActivity = (filter?: { workspaceId?: WorkspaceKey; productId?: ID; limit?: number }) => {
+export const listActivity = (filter?: {
+  workspaceId?: WorkspaceKey;
+  productId?: ID;
+  limit?: number;
+}) => {
   let rows: ActivityEvent[] = demo.activityEvents
     .slice()
     .sort((a, b) => b.occurred_at.localeCompare(a.occurred_at));
@@ -149,7 +153,9 @@ export const listSettings = (group?: string) =>
 /* ------------------------------------------------------------- aggregates */
 
 export function portfolioMetrics() {
-  const openBlockers = demo.risks.filter((r) => r.state === "open" || r.state === "mitigating").length;
+  const openBlockers = demo.risks.filter(
+    (r) => r.state === "open" || r.state === "mitigating",
+  ).length;
   const docsWithApproval = demo.documents.filter((d) => d.approval_state === "passed").length;
   return {
     activeOrganizations: demo.organizations.filter((o) => o.status === "active").length,
@@ -178,64 +184,188 @@ export function searchAll(query: string, entities?: SearchEntity[]): SearchResul
   };
 
   demo.organizations.forEach((o) =>
-    push({ id: o.id, entity: "organization", title: o.name, subtitle: o.legal_name, meta: o.status, route: `/organizations/${o.id}` }),
+    push({
+      id: o.id,
+      entity: "organization",
+      title: o.name,
+      subtitle: o.legal_name,
+      meta: o.status,
+      route: `/organizations/${o.id}`,
+    }),
   );
   demo.workspaces.forEach((w) =>
-    push({ id: w.id, entity: "workspace", title: w.name, subtitle: w.descriptor, meta: w.status, route: w.route }),
+    push({
+      id: w.id,
+      entity: "workspace",
+      title: w.name,
+      subtitle: w.descriptor,
+      meta: w.status,
+      route: w.route,
+    }),
   );
   demo.products.forEach((p) =>
-    push({ id: p.id, entity: "product", title: p.name, subtitle: p.type, meta: p.current_phase, route: `/products/${p.key}` }),
+    push({
+      id: p.id,
+      entity: "product",
+      title: p.name,
+      subtitle: p.type,
+      meta: p.current_phase,
+      route: `/products/${p.key}`,
+    }),
   );
   demo.projects.forEach((p) =>
-    push({ id: p.id, entity: "project", title: p.name, subtitle: p.objective, meta: p.phase, route: `/engineering` }),
+    push({
+      id: p.id,
+      entity: "project",
+      title: p.name,
+      subtitle: p.objective,
+      meta: p.phase,
+      route: `/engineering`,
+    }),
   );
   demo.repositories.forEach((r) =>
-    push({ id: r.id, entity: "repository", title: r.name, subtitle: r.latest_commit_message, meta: r.current_branch, route: `/repositories/${r.id}` }),
+    push({
+      id: r.id,
+      entity: "repository",
+      title: r.name,
+      subtitle: r.latest_commit_message,
+      meta: r.current_branch,
+      route: `/repositories/${r.id}`,
+    }),
   );
   demo.stages.forEach((s) =>
-    push({ id: s.id, entity: "stage", title: `${s.code} — ${s.name}`, subtitle: s.objective, meta: s.state, route: `/engineering/stages` }),
+    push({
+      id: s.id,
+      entity: "stage",
+      title: `${s.code} — ${s.name}`,
+      subtitle: s.objective,
+      meta: s.state,
+      route: `/engineering/stages`,
+    }),
   );
   demo.tasks.forEach((t) =>
-    push({ id: t.id, entity: "task", title: t.title, subtitle: productName(t.product_id), meta: t.state, route: `/engineering` }),
+    push({
+      id: t.id,
+      entity: "task",
+      title: t.title,
+      subtitle: productName(t.product_id),
+      meta: t.state,
+      route: `/engineering`,
+    }),
   );
   demo.documents.forEach((d) =>
-    push({ id: d.id, entity: "document", title: d.title, subtitle: d.doc_type.replace(/_/g, " "), meta: `v${d.version}`, route: `/documents` }),
+    push({
+      id: d.id,
+      entity: "document",
+      title: d.title,
+      subtitle: d.doc_type.replace(/_/g, " "),
+      meta: `v${d.version}`,
+      route: `/documents`,
+    }),
   );
   demo.assets.forEach((a) =>
-    push({ id: a.id, entity: "asset", title: a.name, subtitle: a.role, meta: a.lifecycle, route: `/assets` }),
+    push({
+      id: a.id,
+      entity: "asset",
+      title: a.name,
+      subtitle: a.role,
+      meta: a.lifecycle,
+      route: `/assets`,
+    }),
   );
   demo.decisions.forEach((d) =>
-    push({ id: d.id, entity: "decision", title: `${d.identifier} — ${d.title}`, subtitle: d.decision, meta: d.state, route: `/decisions` }),
+    push({
+      id: d.id,
+      entity: "decision",
+      title: `${d.identifier} — ${d.title}`,
+      subtitle: d.decision,
+      meta: d.state,
+      route: `/decisions`,
+    }),
   );
   demo.snapshots.forEach((s) =>
-    push({ id: s.id, entity: "snapshot", title: `${s.identifier} — ${s.artifact_name}`, subtitle: s.commit_ref, meta: s.version, route: `/engineering/checkpoints` }),
+    push({
+      id: s.id,
+      entity: "snapshot",
+      title: `${s.identifier} — ${s.artifact_name}`,
+      subtitle: s.commit_ref,
+      meta: s.version,
+      route: `/engineering/checkpoints`,
+    }),
   );
   demo.releases.forEach((r) =>
-    push({ id: r.id, entity: "release", title: `${r.name} ${r.version}`, subtitle: r.notes, meta: r.state, route: `/releases/${r.id}` }),
+    push({
+      id: r.id,
+      entity: "release",
+      title: `${r.name} ${r.version}`,
+      subtitle: r.notes,
+      meta: r.state,
+      route: `/releases/${r.id}`,
+    }),
   );
   demo.risks.forEach((r) =>
-    push({ id: r.id, entity: "risk", title: r.title, subtitle: r.recommended_response, meta: r.severity, route: "/command" }),
+    push({
+      id: r.id,
+      entity: "risk",
+      title: r.title,
+      subtitle: r.recommended_response,
+      meta: r.severity,
+      route: "/command",
+    }),
   );
   demo.approvals.forEach((a) =>
-    push({ id: a.id, entity: "approval", title: a.title, subtitle: a.notes, meta: a.decision, route: "/notifications" }),
+    push({
+      id: a.id,
+      entity: "approval",
+      title: a.title,
+      subtitle: a.notes,
+      meta: a.decision,
+      route: "/notifications",
+    }),
   );
   demo.milestones.forEach((m) =>
-    push({ id: m.id, entity: "milestone", title: m.title, subtitle: m.gate_type, meta: m.due_on, route: "/roadmaps" }),
+    push({
+      id: m.id,
+      entity: "milestone",
+      title: m.title,
+      subtitle: m.gate_type,
+      meta: m.due_on,
+      route: "/roadmaps",
+    }),
   );
   demo.roadmaps.forEach((r) =>
-    push({ id: r.id, entity: "roadmap", title: r.name, subtitle: r.horizon, meta: productName(r.product_id), route: "/roadmaps" }),
+    push({
+      id: r.id,
+      entity: "roadmap",
+      title: r.name,
+      subtitle: r.horizon,
+      meta: productName(r.product_id),
+      route: "/roadmaps",
+    }),
   );
   demo.builderJournal.forEach((j) =>
-    push({ id: j.id, entity: "journal", title: j.title, subtitle: j.summary, meta: `${j.entry_date} · ${j.tags.join(", ")}`, route: "/activity" }),
+    push({
+      id: j.id,
+      entity: "journal",
+      title: j.title,
+      subtitle: j.summary,
+      meta: `${j.entry_date} · ${j.tags.join(", ")}`,
+      route: "/activity",
+    }),
   );
   demo.activityEvents.forEach((a) =>
-    push({ id: a.id, entity: "activity", title: a.summary, subtitle: a.detail, meta: a.kind.replace(/_/g, " "), route: "/activity" }),
+    push({
+      id: a.id,
+      entity: "activity",
+      title: a.summary,
+      subtitle: a.detail,
+      meta: a.kind.replace(/_/g, " "),
+      route: "/activity",
+    }),
   );
 
   if (!q) return results.slice(0, 40);
-  return results.filter((r) =>
-    `${r.title} ${r.subtitle} ${r.meta}`.toLowerCase().includes(q),
-  );
+  return results.filter((r) => `${r.title} ${r.subtitle} ${r.meta}`.toLowerCase().includes(q));
 }
 
 export const SEARCH_ENTITY_LABEL: Record<SearchEntity, string> = {

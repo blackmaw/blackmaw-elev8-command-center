@@ -1,11 +1,22 @@
 import { Link } from "@tanstack/react-router";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { useAppState } from "@/app/app-state";
 import { listNotifications } from "@/data/selectors";
 import { Label, Tag } from "@/components/primitives";
 import { cn } from "@/lib/utils";
 
-const TONE = { info: "info", success: "success", warning: "warning", critical: "critical" } as const;
+const TONE = {
+  info: "info",
+  success: "success",
+  warning: "warning",
+  critical: "critical",
+} as const;
 
 export function NotificationsDrawer() {
   const { notificationsOpen, setNotificationsOpen } = useAppState();
@@ -31,7 +42,11 @@ export function NotificationsDrawer() {
               <div className="mt-2 flex items-center justify-between">
                 <Label>{new Date(n.occurred_at).toLocaleString()}</Label>
                 {n.link && (
-                  <Link to={n.link} onClick={() => setNotificationsOpen(false)} className="text-[0.75rem] text-teal-bright hover:underline">
+                  <Link
+                    to={n.link}
+                    onClick={() => setNotificationsOpen(false)}
+                    className="text-[0.75rem] text-teal-bright hover:underline"
+                  >
                     Open record
                   </Link>
                 )}

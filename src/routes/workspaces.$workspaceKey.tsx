@@ -1,6 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { DataTable } from "@/components/DataTable";
-import { DemoBanner, EmptyState, KeyValue, MetricTile, PageHeader, Panel, StatusPill, Tag } from "@/components/primitives";
+import {
+  DemoBanner,
+  EmptyState,
+  KeyValue,
+  MetricTile,
+  PageHeader,
+  Panel,
+  StatusPill,
+  Tag,
+} from "@/components/primitives";
 import { ProductHealthCard } from "@/components/command/ProductHealthCard";
 import {
   getUserName,
@@ -20,7 +29,11 @@ export const Route = createFileRoute("/workspaces/$workspaceKey")({
   head: () => ({
     meta: [
       { title: "Workspace — Elev8 Command Center" },
-      { name: "description", content: "Workspace operating picture: products, work in flight, risks, records, and recent activity." },
+      {
+        name: "description",
+        content:
+          "Workspace operating picture: products, work in flight, risks, records, and recent activity.",
+      },
       { property: "og:title", content: "Workspace — Elev8 Command Center" },
       { property: "og:description", content: "Scoped workspace operating picture." },
     ],
@@ -57,7 +70,11 @@ function WorkspacePage() {
 
   return (
     <div className="mx-auto max-w-[1600px] space-y-4 p-4 lg:p-6">
-      <PageHeader title={workspace.name} descriptor={workspace.descriptor} provenance="manually_recorded">
+      <PageHeader
+        title={workspace.name}
+        descriptor={workspace.descriptor}
+        provenance="manually_recorded"
+      >
         <DemoBanner />
       </PageHeader>
 
@@ -71,9 +88,21 @@ function WorkspacePage() {
       <Panel title="Workspace record">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           <KeyValue label="Owner" value={getUserName(workspace.owner_id)} />
-          <KeyValue label="Status" value={<StatusPill map={ENTITY_STATUS} value={workspace.status} />} />
+          <KeyValue
+            label="Status"
+            value={<StatusPill map={ENTITY_STATUS} value={workspace.status} />}
+          />
           <KeyValue label="Entity" value={workspace.organization_id ?? "Group-wide"} />
-          <KeyValue label="Access" value={<span className="flex flex-wrap gap-1">{workspace.access.map((a) => <Tag key={a}>{a.replace(/_/g, " ")}</Tag>)}</span>} />
+          <KeyValue
+            label="Access"
+            value={
+              <span className="flex flex-wrap gap-1">
+                {workspace.access.map((a) => (
+                  <Tag key={a}>{a.replace(/_/g, " ")}</Tag>
+                ))}
+              </span>
+            }
+          />
         </div>
       </Panel>
 
@@ -92,8 +121,17 @@ function WorkspacePage() {
             emptyTitle="No recorded work"
             columns={[
               { key: "title", header: "Task", render: (t) => t.title },
-              { key: "state", header: "State", render: (t) => <StatusPill map={TASK_STATE} value={t.state} /> },
-              { key: "due", header: "Due", render: (t) => <span className="num">{t.due_on ?? "—"}</span>, secondary: true },
+              {
+                key: "state",
+                header: "State",
+                render: (t) => <StatusPill map={TASK_STATE} value={t.state} />,
+              },
+              {
+                key: "due",
+                header: "Due",
+                render: (t) => <span className="num">{t.due_on ?? "—"}</span>,
+                secondary: true,
+              },
             ]}
           />
         </Panel>
@@ -104,8 +142,17 @@ function WorkspacePage() {
             emptyTitle="No open risks"
             columns={[
               { key: "title", header: "Risk", render: (r) => r.title },
-              { key: "severity", header: "Severity", render: (r) => <StatusPill map={SEVERITY} value={r.severity} /> },
-              { key: "product", header: "Product", render: (r) => productName(r.product_id), secondary: true },
+              {
+                key: "severity",
+                header: "Severity",
+                render: (r) => <StatusPill map={SEVERITY} value={r.severity} />,
+              },
+              {
+                key: "product",
+                header: "Product",
+                render: (r) => productName(r.product_id),
+                secondary: true,
+              },
             ]}
           />
         </Panel>
@@ -118,8 +165,17 @@ function WorkspacePage() {
             emptyTitle="No records"
             columns={[
               { key: "title", header: "Document", render: (d) => d.title },
-              { key: "type", header: "Type", render: (d) => d.doc_type.replace(/_/g, " "), secondary: true },
-              { key: "v", header: "Version", render: (d) => <span className="tech">v{d.version}</span> },
+              {
+                key: "type",
+                header: "Type",
+                render: (d) => d.doc_type.replace(/_/g, " "),
+                secondary: true,
+              },
+              {
+                key: "v",
+                header: "Version",
+                render: (d) => <span className="tech">v{d.version}</span>,
+              },
             ]}
           />
         </Panel>

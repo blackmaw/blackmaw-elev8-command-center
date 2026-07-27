@@ -9,7 +9,10 @@ export const Route = createFileRoute("/activity")({
   head: () => ({
     meta: [
       { title: "Activity Ledger — Elev8 Command Center" },
-      { name: "description", content: "Append-oriented institutional ledger of every recorded event across the group." },
+      {
+        name: "description",
+        content: "Append-oriented institutional ledger of every recorded event across the group.",
+      },
       { property: "og:title", content: "Activity Ledger — Elev8 Command Center" },
       { property: "og:description", content: "Institutional event ledger." },
     ],
@@ -58,7 +61,9 @@ function ActivityPage() {
             type="button"
             onClick={() => setKind(k)}
             className={`rounded-xs border px-2 py-1 text-[0.75rem] transition-colors ${
-              k === kind ? "border-border-strong bg-panel-elevated text-foreground" : "border-border text-muted-foreground hover:text-foreground"
+              k === kind
+                ? "border-border-strong bg-panel-elevated text-foreground"
+                : "border-border text-muted-foreground hover:text-foreground"
             }`}
           >
             {k.replace(/_/g, " ")}
@@ -70,11 +75,16 @@ function ActivityPage() {
         <ol className="divide-y divide-border">
           {events.map((e) => (
             <li key={e.id} className="flex min-w-0 gap-3 px-4 py-3">
-              <span className={`mt-1.5 size-1.5 shrink-0 rounded-full ${TONE_DOT[KIND_TONE[e.kind] ?? "neutral"]}`} aria-hidden />
+              <span
+                className={`mt-1.5 size-1.5 shrink-0 rounded-full ${TONE_DOT[KIND_TONE[e.kind] ?? "neutral"]}`}
+                aria-hidden
+              />
               <div className="min-w-0 flex-1">
                 <div className="flex min-w-0 flex-wrap items-baseline justify-between gap-2">
                   <span className="text-[0.8125rem] font-medium">{e.summary}</span>
-                  <Mono className="text-[0.6875rem] text-muted-foreground">{new Date(e.occurred_at).toLocaleString()}</Mono>
+                  <Mono className="text-[0.6875rem] text-muted-foreground">
+                    {new Date(e.occurred_at).toLocaleString()}
+                  </Mono>
                 </div>
                 <p className="mt-0.5 text-xs text-muted-foreground">{e.detail}</p>
                 <div className="mt-1.5 flex flex-wrap items-center gap-1.5">

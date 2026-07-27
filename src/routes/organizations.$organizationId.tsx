@@ -1,6 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { DataTable } from "@/components/DataTable";
-import { DemoBanner, EmptyState, KeyValue, PageHeader, Panel, StatusPill } from "@/components/primitives";
+import {
+  DemoBanner,
+  EmptyState,
+  KeyValue,
+  PageHeader,
+  Panel,
+  StatusPill,
+} from "@/components/primitives";
 import {
   getOrganization,
   getUserName,
@@ -15,7 +22,10 @@ export const Route = createFileRoute("/organizations/$organizationId")({
   head: () => ({
     meta: [
       { title: "Organization Record — Elev8 Command Center" },
-      { name: "description", content: "Entity record: structure, readiness posture, business units, and owned products." },
+      {
+        name: "description",
+        content: "Entity record: structure, readiness posture, business units, and owned products.",
+      },
       { property: "og:title", content: "Organization Record — Elev8 Command Center" },
       { property: "og:description", content: "Entity structure, readiness, units, and products." },
     ],
@@ -62,16 +72,37 @@ function OrganizationDetail() {
             <KeyValue label="Jurisdiction" value={org.jurisdiction} />
             <KeyValue label="Owner" value={getUserName(org.owner_id)} />
             <KeyValue label="Formed" value={org.formed_on ?? "Not filed"} />
-            <KeyValue label="Status" value={<StatusPill map={ENTITY_STATUS} value={org.status} />} />
+            <KeyValue
+              label="Status"
+              value={<StatusPill map={ENTITY_STATUS} value={org.status} />}
+            />
           </div>
         </Panel>
-        <Panel title="Readiness" subtitle="Manually recorded — nothing is verified by an integration.">
+        <Panel
+          title="Readiness"
+          subtitle="Manually recorded — nothing is verified by an integration."
+        >
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-            <KeyValue label="Registered agent" value={<StatusPill map={ENTITY_STATUS} value={org.registered_agent_state} />} />
-            <KeyValue label="EIN" value={<StatusPill map={ENTITY_STATUS} value={org.ein_state} />} />
-            <KeyValue label="Banking" value={<StatusPill map={ENTITY_STATUS} value={org.banking_state} />} />
-            <KeyValue label="Credit" value={<StatusPill map={ENTITY_STATUS} value={org.credit_state} />} />
-            <KeyValue label="Insurance" value={<StatusPill map={ENTITY_STATUS} value={org.insurance_state} />} />
+            <KeyValue
+              label="Registered agent"
+              value={<StatusPill map={ENTITY_STATUS} value={org.registered_agent_state} />}
+            />
+            <KeyValue
+              label="EIN"
+              value={<StatusPill map={ENTITY_STATUS} value={org.ein_state} />}
+            />
+            <KeyValue
+              label="Banking"
+              value={<StatusPill map={ENTITY_STATUS} value={org.banking_state} />}
+            />
+            <KeyValue
+              label="Credit"
+              value={<StatusPill map={ENTITY_STATUS} value={org.credit_state} />}
+            />
+            <KeyValue
+              label="Insurance"
+              value={<StatusPill map={ENTITY_STATUS} value={org.insurance_state} />}
+            />
           </div>
         </Panel>
       </div>
@@ -84,7 +115,11 @@ function OrganizationDetail() {
           columns={[
             { key: "name", header: "Entity", render: (o) => o.name },
             { key: "kind", header: "Type", render: (o) => o.kind, secondary: true },
-            { key: "status", header: "Status", render: (o) => <StatusPill map={ENTITY_STATUS} value={o.status} /> },
+            {
+              key: "status",
+              header: "Status",
+              render: (o) => <StatusPill map={ENTITY_STATUS} value={o.status} />,
+            },
           ]}
         />
       </Panel>
@@ -97,7 +132,11 @@ function OrganizationDetail() {
             columns={[
               { key: "name", header: "Unit", render: (u) => u.name },
               { key: "fn", header: "Function", render: (u) => u.function, secondary: true },
-              { key: "hc", header: "Headcount plan", render: (u) => <span className="num">{u.headcount_plan}</span> },
+              {
+                key: "hc",
+                header: "Headcount plan",
+                render: (u) => <span className="num">{u.headcount_plan}</span>,
+              },
             ]}
           />
         </Panel>
@@ -107,8 +146,16 @@ function OrganizationDetail() {
             emptyTitle="No products owned by this entity"
             columns={[
               { key: "name", header: "Product", render: (p) => p.name },
-              { key: "lifecycle", header: "Lifecycle", render: (p) => <StatusPill map={LIFECYCLE} value={p.lifecycle} /> },
-              { key: "health", header: "Health", render: (p) => <StatusPill map={HEALTH} value={p.health} /> },
+              {
+                key: "lifecycle",
+                header: "Lifecycle",
+                render: (p) => <StatusPill map={LIFECYCLE} value={p.lifecycle} />,
+              },
+              {
+                key: "health",
+                header: "Health",
+                render: (p) => <StatusPill map={HEALTH} value={p.health} />,
+              },
             ]}
           />
         </Panel>
@@ -120,8 +167,17 @@ function OrganizationDetail() {
           emptyTitle="No documents recorded"
           columns={[
             { key: "title", header: "Document", render: (d) => d.title },
-            { key: "type", header: "Type", render: (d) => d.doc_type.replace(/_/g, " "), secondary: true },
-            { key: "v", header: "Version", render: (d) => <span className="tech">v{d.version}</span> },
+            {
+              key: "type",
+              header: "Type",
+              render: (d) => d.doc_type.replace(/_/g, " "),
+              secondary: true,
+            },
+            {
+              key: "v",
+              header: "Version",
+              render: (d) => <span className="tech">v{d.version}</span>,
+            },
           ]}
         />
       </Panel>

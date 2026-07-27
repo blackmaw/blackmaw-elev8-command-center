@@ -33,7 +33,10 @@ function Breadcrumbs() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const parts = pathname.split("/").filter(Boolean);
   return (
-    <nav aria-label="Breadcrumb" className="hidden min-w-0 items-center gap-1.5 text-[0.75rem] lg:flex">
+    <nav
+      aria-label="Breadcrumb"
+      className="hidden min-w-0 items-center gap-1.5 text-[0.75rem] lg:flex"
+    >
       <Link to="/command" className="text-muted-foreground hover:text-foreground">
         Command Center
       </Link>
@@ -42,7 +45,12 @@ function Breadcrumbs() {
           <span className="text-muted-foreground/50" aria-hidden>
             /
           </span>
-          <span className={cn("truncate", i === parts.length - 1 ? "text-foreground" : "text-muted-foreground")}>
+          <span
+            className={cn(
+              "truncate",
+              i === parts.length - 1 ? "text-foreground" : "text-muted-foreground",
+            )}
+          >
             {ROUTE_LABELS[part] ?? part.replace(/-/g, " ")}
           </span>
         </span>
@@ -148,14 +156,21 @@ export function TopBar() {
         </button>
 
         <DropdownMenu>
-          <DropdownMenuTrigger className="flex items-center gap-2 rounded-xs border border-border px-1.5 py-1 hover:border-border-strong" aria-label="Founder menu">
-            <span className="tech grid size-6 place-items-center rounded-xs bg-panel-elevated text-[0.625rem]">{currentUser.initials}</span>
+          <DropdownMenuTrigger
+            className="flex items-center gap-2 rounded-xs border border-border px-1.5 py-1 hover:border-border-strong"
+            aria-label="Founder menu"
+          >
+            <span className="tech grid size-6 place-items-center rounded-xs bg-panel-elevated text-[0.625rem]">
+              {currentUser.initials}
+            </span>
             <span className="hidden text-[0.75rem] sm:inline">{currentUser.name}</span>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-64">
             <DropdownMenuLabel>
               <div className="text-[0.8125rem]">{currentUser.name}</div>
-              <div className="text-[0.6875rem] font-normal text-muted-foreground">{currentUser.title}</div>
+              <div className="text-[0.6875rem] font-normal text-muted-foreground">
+                {currentUser.title}
+              </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem disabled className="text-[0.75rem]">

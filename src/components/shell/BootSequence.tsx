@@ -61,8 +61,24 @@ export function BootSequence() {
 
         <ul className="tech mt-6 space-y-1 text-[0.75rem]">
           {STEPS.map((s, i) => (
-            <li key={s} className={cn("flex items-center gap-2", i <= step ? "text-foreground" : "text-muted-foreground/40")}>
-              <span className={cn("size-1.5 rounded-full", i < step ? "bg-success" : i === step ? "bg-teal-bright" : "bg-muted-foreground/30")} aria-hidden />
+            <li
+              key={s}
+              className={cn(
+                "flex items-center gap-2",
+                i <= step ? "text-foreground" : "text-muted-foreground/40",
+              )}
+            >
+              <span
+                className={cn(
+                  "size-1.5 rounded-full",
+                  i < step
+                    ? "bg-success"
+                    : i === step
+                      ? "bg-teal-bright"
+                      : "bg-muted-foreground/30",
+                )}
+                aria-hidden
+              />
               {s}
               <span className="ml-auto">{i < step ? "OK" : i === step ? "…" : ""}</span>
             </li>
@@ -71,8 +87,12 @@ export function BootSequence() {
 
         <div className="mt-6 flex items-center justify-between border-t border-border pt-3">
           <div>
-            <div className="tech text-[0.75rem] text-teal-bright">{step >= STEPS.length ? "SYSTEM READY" : "INITIALIZING"}</div>
-            <div className="text-[0.6875rem] text-muted-foreground">Welcome, Founder · {SYSTEM_STATE.build}</div>
+            <div className="tech text-[0.75rem] text-teal-bright">
+              {step >= STEPS.length ? "SYSTEM READY" : "INITIALIZING"}
+            </div>
+            <div className="text-[0.6875rem] text-muted-foreground">
+              Welcome, Founder · {SYSTEM_STATE.build}
+            </div>
           </div>
           <button
             type="button"

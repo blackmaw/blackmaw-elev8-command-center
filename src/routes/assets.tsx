@@ -1,8 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { DataTable } from "@/components/DataTable";
-import { DemoBanner, KeyValue, Label, PageHeader, Panel, StatusPill, Tag } from "@/components/primitives";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import {
+  DemoBanner,
+  KeyValue,
+  Label,
+  PageHeader,
+  Panel,
+  StatusPill,
+  Tag,
+} from "@/components/primitives";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { listAssets } from "@/data/selectors";
 import { ASSET_LIFECYCLE, PROVENANCE } from "@/domain/status";
 import type { Asset } from "@/domain/types";
@@ -11,7 +25,11 @@ export const Route = createFileRoute("/assets")({
   head: () => ({
     meta: [
       { title: "Asset Registry — Elev8 Command Center" },
-      { name: "description", content: "Owned equipment with specifications, interfaces, dependencies, and planned upgrades." },
+      {
+        name: "description",
+        content:
+          "Owned equipment with specifications, interfaces, dependencies, and planned upgrades.",
+      },
       { property: "og:title", content: "Asset Registry — Elev8 Command Center" },
       { property: "og:description", content: "Owned equipment inventory and lifecycle." },
     ],
@@ -38,13 +56,26 @@ function AssetsPage() {
           rows={assets}
           onRowClick={(a) => setSelected(a)}
           columns={[
-            { key: "name", header: "Asset", render: (a) => <span className="font-medium">{a.name}</span> },
+            {
+              key: "name",
+              header: "Asset",
+              render: (a) => <span className="font-medium">{a.name}</span>,
+            },
             { key: "category", header: "Category", render: (a) => <Tag>{a.category}</Tag> },
             { key: "vendor", header: "Vendor", render: (a) => a.vendor, secondary: true },
             { key: "role", header: "Role", render: (a) => a.role, secondary: true },
             { key: "location", header: "Location", render: (a) => a.location, secondary: true },
-            { key: "serial", header: "Serial", render: (a) => <StatusPill map={PROVENANCE} value={a.serial_state} dot={false} />, secondary: true },
-            { key: "lifecycle", header: "Lifecycle", render: (a) => <StatusPill map={ASSET_LIFECYCLE} value={a.lifecycle} /> },
+            {
+              key: "serial",
+              header: "Serial",
+              render: (a) => <StatusPill map={PROVENANCE} value={a.serial_state} dot={false} />,
+              secondary: true,
+            },
+            {
+              key: "lifecycle",
+              header: "Lifecycle",
+              render: (a) => <StatusPill map={ASSET_LIFECYCLE} value={a.lifecycle} />,
+            },
           ]}
         />
       </Panel>
@@ -63,14 +94,23 @@ function AssetsPage() {
                 <KeyValue label="Model" value={selected.model} />
                 <KeyValue label="Location" value={selected.location} />
                 <KeyValue label="Acquired" value={selected.acquired_on ?? "Not acquired"} />
-                <KeyValue label="Lifecycle" value={<StatusPill map={ASSET_LIFECYCLE} value={selected.lifecycle} />} />
-                <KeyValue label="Serial record" value={<StatusPill map={PROVENANCE} value={selected.serial_state} />} />
+                <KeyValue
+                  label="Lifecycle"
+                  value={<StatusPill map={ASSET_LIFECYCLE} value={selected.lifecycle} />}
+                />
+                <KeyValue
+                  label="Serial record"
+                  value={<StatusPill map={PROVENANCE} value={selected.serial_state} />}
+                />
               </div>
 
               <div className="mt-4 space-y-1.5">
                 <Label>Specifications</Label>
                 {selected.specifications.map((s) => (
-                  <div key={s.label} className="flex justify-between gap-3 border-b border-border/60 pb-1 text-[0.8125rem] last:border-0">
+                  <div
+                    key={s.label}
+                    className="flex justify-between gap-3 border-b border-border/60 pb-1 text-[0.8125rem] last:border-0"
+                  >
                     <span className="text-muted-foreground">{s.label}</span>
                     <span className="text-right">{s.value}</span>
                   </div>
@@ -80,7 +120,10 @@ function AssetsPage() {
               <div className="mt-4 space-y-1.5">
                 <Label>Interfaces</Label>
                 {selected.interfaces.map((s) => (
-                  <div key={s.label} className="flex justify-between gap-3 border-b border-border/60 pb-1 text-[0.8125rem] last:border-0">
+                  <div
+                    key={s.label}
+                    className="flex justify-between gap-3 border-b border-border/60 pb-1 text-[0.8125rem] last:border-0"
+                  >
                     <span className="text-muted-foreground">{s.label}</span>
                     <span className="text-right">{s.value}</span>
                   </div>

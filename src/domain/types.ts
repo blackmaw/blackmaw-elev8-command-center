@@ -116,12 +116,7 @@ export interface BusinessUnit extends BaseRecord {
 /* ------------------------------------------------------------ workspaces */
 
 export type WorkspaceKey =
-  | "command"
-  | "executive"
-  | "technologies"
-  | "driving-academy"
-  | "infrastructure"
-  | "institutional";
+  "command" | "executive" | "technologies" | "driving-academy" | "infrastructure" | "institutional";
 
 export interface Workspace {
   id: WorkspaceKey;
@@ -372,12 +367,7 @@ export interface DocumentVersion {
 /* -------------------------------------------------------- infrastructure */
 
 export type AssetLifecycle =
-  | "planned"
-  | "procured"
-  | "staging"
-  | "in_service"
-  | "maintenance"
-  | "retired";
+  "planned" | "procured" | "staging" | "in_service" | "maintenance" | "retired";
 
 export interface Asset extends BaseRecord {
   name: string;
@@ -513,7 +503,8 @@ export interface ActivityEvent {
 export interface Integration {
   id: ID;
   name: string;
-  category: "source_control" | "virtualization" | "network" | "storage" | "observability" | "platform";
+  category:
+    "source_control" | "virtualization" | "network" | "storage" | "observability" | "platform";
   target: string;
   state: "not_connected" | "planned" | "configured";
   adapter: string;
@@ -657,7 +648,12 @@ export interface FounderBriefing {
   currentStage: Stage | null;
   blockers: Risk[];
   pendingApprovals: Approval[];
-  infrastructureAlerts: { id: ID; label: string; detail: string; severity: "info" | "warning" | "critical" }[];
+  infrastructureAlerts: {
+    id: ID;
+    label: string;
+    detail: string;
+    severity: "info" | "warning" | "critical";
+  }[];
   upcomingGates: Milestone[];
   documentationGaps: { id: ID; label: string; detail: string }[];
   recentChanges: ActivityEvent[];

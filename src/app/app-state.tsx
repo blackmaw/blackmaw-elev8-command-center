@@ -44,7 +44,10 @@ interface AppState {
   addRecentSearch: (q: string) => void;
   role: RoleKey;
   scope: AuthScope;
-  can: (permission: PermissionKey, target?: { organization_id?: string | null; workspace_id?: string | null }) => boolean;
+  can: (
+    permission: PermissionKey,
+    target?: { organization_id?: string | null; workspace_id?: string | null },
+  ) => boolean;
 }
 
 const Ctx = createContext<AppState | null>(null);

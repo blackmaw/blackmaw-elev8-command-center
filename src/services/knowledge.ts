@@ -73,7 +73,10 @@ export function answer(question: string, workspaceId: WorkspaceKey = "command"):
         answer: brief.pendingApprovals.length
           ? `${brief.pendingApprovals.length} approvals are pending explicit human decision: ${brief.pendingApprovals.map((a) => a.title).join("; ")}.`
           : "No approvals are pending.",
-        citations: [{ label: "Notifications", route: "/notifications" }, { label: "Stages", route: "/engineering/stages" }],
+        citations: [
+          { label: "Notifications", route: "/notifications" },
+          { label: "Stages", route: "/engineering/stages" },
+        ],
       };
     case "next_action":
       return {
@@ -85,7 +88,10 @@ export function answer(question: string, workspaceId: WorkspaceKey = "command"):
       return {
         ...base,
         answer: brief.documentationGaps.length
-          ? `${brief.documentationGaps.length} documentation gaps: ${brief.documentationGaps.slice(0, 4).map((g) => g.label).join("; ")}.`
+          ? `${brief.documentationGaps.length} documentation gaps: ${brief.documentationGaps
+              .slice(0, 4)
+              .map((g) => g.label)
+              .join("; ")}.`
           : "The documentation register is fully approved.",
         citations: [{ label: "Documents", route: "/documents" }],
       };
@@ -96,13 +102,18 @@ export function answer(question: string, workspaceId: WorkspaceKey = "command"):
         answer: blocked.length
           ? `${blocked.map((p) => `${p.name} (${p.health.replace(/_/g, " ")})`).join(", ")}. Open blockers: ${brief.blockers.length}.`
           : "No products are recorded as blocked.",
-        citations: [{ label: "Products", route: "/products" }, { label: "Decisions", route: "/decisions" }],
+        citations: [
+          { label: "Products", route: "/products" },
+          { label: "Decisions", route: "/decisions" },
+        ],
       };
     }
     case "health":
       return {
         ...base,
-        answer: healthBoard().map((h) => `${h.label} ${h.score} (${h.band.replace(/_/g, " ")})`).join(" · "),
+        answer: healthBoard()
+          .map((h) => `${h.label} ${h.score} (${h.band.replace(/_/g, " ")})`)
+          .join(" · "),
         citations: [{ label: "Command overview", route: "/command" }],
       };
     default:

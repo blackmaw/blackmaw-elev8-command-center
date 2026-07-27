@@ -21,7 +21,13 @@ const RING_TONE: Record<string, "success" | "warning" | "critical" | "info" | "t
   paused: "info",
 };
 
-export function ProductHealthCard({ product, className }: { product: Product; className?: string }) {
+export function ProductHealthCard({
+  product,
+  className,
+}: {
+  product: Product;
+  className?: string;
+}) {
   const Emblem = EMBLEM[product.key] ?? Cpu;
   return (
     <Link
@@ -66,7 +72,9 @@ export function ProductHealthCard({ product, className }: { product: Product; cl
         </div>
         <div className="min-w-0">
           <Label>Next gate</Label>
-          <div className="mt-0.5 line-clamp-2 text-[0.75rem] text-foreground">{product.next_gate}</div>
+          <div className="mt-0.5 line-clamp-2 text-[0.75rem] text-foreground">
+            {product.next_gate}
+          </div>
         </div>
       </div>
     </Link>
