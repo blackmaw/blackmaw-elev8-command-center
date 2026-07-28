@@ -1,3 +1,4 @@
+import { getGitHubHealth } from "@/integrations/github";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   AlertTriangle,
@@ -56,17 +57,31 @@ export const Route = createFileRoute("/command")({
         content:
           "Cross-portfolio operating picture: current priority, approvals, risks, and portfolio state.",
       },
-      { property: "og:title", content: "Command Overview — Elev8 Command Center" },
+      {
+        property: "og:title",
+        content: "Command Overview — Elev8 Command Center",
+      },
       {
         property: "og:description",
         content: "Cross-portfolio operating picture for Bell Cap Group LLC.",
       },
     ],
   }),
+
+  loader: async () => {
+    const githubHealth = await getGitHubHealth();
+
+    return {
+      githubHealth,
+    };
+  },
+
   component: CommandOverview,
 });
 
 function CommandOverview() {
+  const { githubHealth } = Route.useLoaderData();
+
   const { setIntelOpen, setPaletteOpen } = useAppState();
   const priority = currentPriority();
   const stage = getStage(priority.resume.stage_id);
