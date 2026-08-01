@@ -1,3 +1,4 @@
+import { ProviderHealthPanel } from "@/components/command/ProviderHealthPanel";
 import { getGitHubHealth } from "@/integrations/github";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
@@ -131,6 +132,8 @@ function CommandOverview() {
           ]}
         />
       </header>
+
+      <ProviderHealthPanel githubHealth={githubHealth} />
 
       <div className="grid gap-3 2xl:grid-cols-[minmax(0,2.1fr)_minmax(0,1fr)]">
         <Panel
